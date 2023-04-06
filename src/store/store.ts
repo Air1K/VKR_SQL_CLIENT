@@ -12,7 +12,7 @@ import AuthService from "../services/AuthService";
 import axios from "axios";
 import {API_URL} from "../http";
 import StockService from '../services/StockService'
-
+import NodeZoneEdgeService from '../services/NodeZoneEdgeService'
 export default class Store {
 
 
@@ -115,13 +115,14 @@ export default class Store {
 
     setSizeZon(color){
             this.sizeZon.push({
-                id_zone: null,
                 color: color,
                 name: '',
                 widtH: 200,
                 heighT: 100,
                 toP: 0,
                 lefT: this.left,
+                id_stock: this.plan[this.stock_active-1]?.id_stock,
+                id_type_zone: null,
             })
             this.left += 205
 
@@ -191,17 +192,6 @@ export default class Store {
         sessionStorage.setItem("sizeZon", json);
     }
 
-    upgradeAuth(state: boolean, obj:{}){
-        const Auth = JSON.stringify(state)
-        sessionStorage.setItem('Auth', Auth);
-        const user = JSON.stringify(obj)
-        sessionStorage.setItem('user', user);
-    }
-
-    upgradePlan() {
-        let json = JSON.stringify(this.plan);
-        sessionStorage.setItem("plan", json);
-    }
     upgradePlanActive() {
         let json = JSON.stringify(this.stock_active);
         sessionStorage.setItem("stock_active", json);
@@ -247,19 +237,20 @@ export default class Store {
                 rotations: rotade
             }
             this.Rotation.push(obj)
-            // console.log(this.idGraph);
-            // console.log(this.idGraph[idA]);
             return
         }
-
         console.log("Ошибка в условиях")
-        // const obj = {
-        //             idB: idB,
-        //             long: long,
-        //             rotations: rotade
-        //         }
-        // this.idGraph[idA].rotation.push(obj)
-        // this.idGraph[idA].rotation.push(obj)
+
+    }
+
+    async saveBd(){
+        try {
+            const response = await NodeZoneEdgeService.addNodeZoneEdge(this.idGraph, this.sizeZon, this.matrixsmesh)
+            console.log(response)
+        }
+        catch (e) {
+            console.log(e)
+        }
     }
 
     setGraph(idGraph: Graph[]) {

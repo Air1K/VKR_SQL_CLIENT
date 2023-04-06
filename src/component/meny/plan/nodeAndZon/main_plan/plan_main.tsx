@@ -87,11 +87,7 @@ const PlanMain = () => {
                 <div className={styles.checkboxAndButton}>
                     <p>
                         <button onClick={async () => {
-
-
-                            console.log(obj)
-                            console.log(objCache)
-
+                            await store.saveBd()
                         }}>Сохранить
                         </button>
                     </p>

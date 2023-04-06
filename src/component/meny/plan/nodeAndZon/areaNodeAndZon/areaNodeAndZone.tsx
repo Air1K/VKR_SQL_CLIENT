@@ -120,7 +120,7 @@ const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, se
         obj[id].Y = offseteNode[id].Yoffs + obj[id].Y;
     }
 
-    async function editObj(id) {
+    async function editObj() {
         await setObj_Rotation(copy);
         await setGraph(obj);
     }
@@ -128,7 +128,7 @@ const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, se
     const editNodeDreagEnd = async (info, id) => {
 
         await editNodeDragF(id)
-        await editObj(id);
+        await editObj();
         await store.editGraph(graph);
         await store.set_Rotation(obj_Rotation);
         console.log(obj, graph);

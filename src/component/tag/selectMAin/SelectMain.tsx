@@ -7,10 +7,11 @@ const SelectMain = observer(() => {
 
     const planStock = (event)=>{
         store.setStockActive(store.plan.findIndex(el => el.id_stock === Number(event.target.value)) + 1);
-        console.log(store.plan[store.stock_active]?.name)
+        console.log(store.plan[store.stock_active-1]?.name)
     }
     useEffect(()=>{
-        console.log("AAAA")
+        console.log("AAAA", store.stock_active, store.plan[store.stock_active-1]?.id_stock,  store.plan[store.stock_active-1]?.name)
+
     },[store.stock_active])
 
     return (

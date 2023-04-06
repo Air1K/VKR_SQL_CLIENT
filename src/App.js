@@ -23,7 +23,6 @@ const App = observer(()=> {
     // const [roles, setRoles] = useState(store.user.role);
     useEffect(()=> {
         if(localStorage.getItem('token')){
-            store.update();
             store.checkAuth();
         }
     }, [])

@@ -23,6 +23,7 @@ const Main = observer(() => {
     useEffect( () => {
         if(store.isAuth){
             console.log("Гет сервер")
+            store.update();
         }
 
     }, [store.user.role])
