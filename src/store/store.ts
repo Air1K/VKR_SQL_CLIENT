@@ -13,6 +13,7 @@ import axios from "axios";
 import {API_URL} from "../http";
 import StockService from '../services/StockService'
 import NodeZoneEdgeService from '../services/NodeZoneEdgeService'
+import {Edge} from "../models/Edge";
 export default class Store {
 
 
@@ -22,6 +23,7 @@ export default class Store {
     units_type: UnitsType[] = []; //Таблица бл
     user = {} as IUser //Таблица бл
     plan: Plan[] = []; //Таблица бл
+    edge: Edge[] = []; //Таблица бл
 
     left = 0;
 
@@ -84,6 +86,16 @@ export default class Store {
             console.log(e);
         }
     }
+    setEdge(edge: Edge[]){
+        this.edge = edge
+    }
+
+    setEdgePush(edge: Edge){
+        this.edge.push(edge);
+        let json = JSON.stringify(this.edge);
+        sessionStorage.setItem("edge", json);
+    }
+
 
     async addZone(name){
         try {
@@ -113,16 +125,16 @@ export default class Store {
         this.plan = obj;
     }
 
-    setSizeZon(color){
+    setSizeZon(name, color, active){
             this.sizeZon.push({
+                name: name,
                 color: color,
-                name: '',
                 widtH: 200,
                 heighT: 100,
                 toP: 0,
                 lefT: this.left,
                 id_stock: this.plan[this.stock_active-1]?.id_stock,
-                id_type_zone: null,
+                id_type_zone: active,
             })
             this.left += 205
 
@@ -245,7 +257,7 @@ export default class Store {
 
     async saveBd(){
         try {
-            const response = await NodeZoneEdgeService.addNodeZoneEdge(this.idGraph, this.sizeZon, this.matrixsmesh)
+            const response = await NodeZoneEdgeService.addNodeZoneEdge(this.idGraph, this.sizeZon, this.matrixsmesh, this.edge)
             console.log(response)
         }
         catch (e) {
@@ -334,6 +346,10 @@ export default class Store {
             const stock_active = JSON.parse(sessionStorage.getItem("stock_active"))
             this.setStockActive(stock_active)
         }
+        if (sessionStorage.getItem("edge")) {
+            const edge = JSON.parse(sessionStorage.getItem("edge"))
+            this.setEdge(edge);
+        }
     }
 
 
@@ -389,9 +405,10 @@ export default class Store {
             }
 
             obj.push({
+                num: num,
                 X: OX,
                 Y: OY,
-                num: num
+                id_zone: null,
             })
             // arr.push(obj)
             this.setGraph(obj)
@@ -645,15 +662,6 @@ export default class Store {
     solutions(G1, G2) {
 
         let aSearc = G1, bSearc = G2;
-
-        // for (let i = 0; i < this.idGraph.length; i++) {
-        //     if (this.idGraph[i].num == G1) {
-        //         aSearc = i;
-        //     }
-        //     if (this.idGraph[i].num == G2) {
-        //         bSearc = i;
-        //     }
-        // }
         const x1 = this.idGraph[aSearc].X;
         const y1 = this.idGraph[aSearc].Y;
         const x2 = this.idGraph[bSearc].X;
@@ -668,9 +676,6 @@ export default class Store {
         const centerY = ((y1 + y2) / 2)
         this.setRotation(aSearc, bSearc, long, deg, centerX, centerY)
         console.log(this.Rotation)
-
-
-        // console.log(this.idGraph[aSearc].rotation.length)
     }
 
     matrixAndZone() {
@@ -695,15 +700,6 @@ export default class Store {
                 break;
             }
         }
-        // const Rotation = Object.assign([], this.Rotation);
-        // for(let i = 0; i < Rotation.length; i++){
-        //     if(Rotation[i].idA === G || Rotation[i].idB === G){
-        //         this.Rotation.splice(i)
-        //         console.log("EEE")
-        //     }
-        //
-        // }
-        // this.upgradeStoreRotation();
 
         this.idGraph.splice(G, 1);
         this.matrixsmesh.splice(G, 1);

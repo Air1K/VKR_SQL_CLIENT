@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react';
 import styles from './stylesBlock.module.sass'
 import {Context} from "../../../../../index";
+import Selected from "../../../../tag/select/select";
 
 const Block = ({render_line, setRender_line, setVisibleDell, setMyModalZone}) => {
 
@@ -9,9 +10,8 @@ const Block = ({render_line, setRender_line, setVisibleDell, setMyModalZone}) =>
     const [G1, setG1] = useState('')
     const [G2, setG2] = useState('')
     const [ves, setVes] = useState('')
-
     const [nameS, setNameS] = useState('')
-
+    const [active, setActive] = useState(0)
     const valid = () => {
         if (nameS == '') {
             alert("Имя не может быть пустым")
@@ -42,13 +42,8 @@ const Block = ({render_line, setRender_line, setVisibleDell, setMyModalZone}) =>
                         Введите расстояние между узлами:
                         <input type="number" value={ves} onChange={event => setVes(event.target.value)}
                                placeholder="Введите расстояние между узлами"/>
-                        Ед. измерения
-                        <select value="Ед. измерения" style={{display: 'flex'}}>
-                            <option>м.</option>
-                            <option>мм.</option>
-                            <option>см.</option>
-                            <option>дм.</option>
-                        </select>
+                        <Selected active={active} setActive={setActive} nameLabel={"Ед. измерения"} objMap={store.units_type} ID={"id_units_type"}/>
+
                         {/*Вид зоны*/}
                         {/*<select style={{display: 'flex'}}>*/}
                         {/*    <option>Зона перевозки</option>*/}
@@ -62,6 +57,13 @@ const Block = ({render_line, setRender_line, setVisibleDell, setMyModalZone}) =>
                     await valid();
                     await store.matrixSmejUsel(G1, G2, ves);
                     await store.matrixAndZone();
+                    await store.setEdgePush({
+                        A: G1,
+                        B: G2,
+                        long: Number(ves),
+                        id_units_type: active,
+                        id_zone: null,
+                    })
                     await setRender_line(!render_line)
                 }}>Задать расстояние
                 </button>
