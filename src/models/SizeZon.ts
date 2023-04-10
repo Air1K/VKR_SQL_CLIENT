@@ -1,4 +1,5 @@
 export interface SizeZon{
+    id_zone: number;
     name: string;
     color: string;
     widtH: number;

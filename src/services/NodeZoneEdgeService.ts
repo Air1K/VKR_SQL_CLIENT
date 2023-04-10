@@ -9,4 +9,7 @@ export  default class NodeZoneEdgeService {
         console.log(nodes);
         return $api.post<AuthResponse>('/node-zone-edge/add', {nodes, zone, matrix, edge})
     }
+    static async getNodeZoneEdge(stockId: number): Promise<AxiosResponse> {
+        return $api.post<AuthResponse>('/node-zone-edge/get', {stockId})
+    }
 }

@@ -24,14 +24,12 @@ const App = observer(()=> {
     useEffect(()=> {
         if(localStorage.getItem('token')){
             store.checkAuth();
+            store.update()
         }
     }, [])
     useEffect(() => {
-        store.update()
-        console.log("Обновил !!!!!!!!!!!");
         // setRoles(store.user.role)
-
-    }, [store.stock_active])
+    }, [store.stock_active, store.user.role])
     const Role = () => {
         {
 

@@ -89,11 +89,32 @@ export default class Store {
     setEdge(edge: Edge[]){
         this.edge = edge
     }
+    set_Stock(nodes, zone, edge, matrix){
+        this.idGraph = nodes
+        this.sizeZon = zone
+        this.edge = edge
+        this.matrixsmesh = matrix
+
+        this.upgradeStore()
+        this.upgradeSizeZon()
+        this.upgradeEdge()
+        this.upgradeStoreMatrix()
+
+        this.matrixAndZone()
+    }
+    async getNodeAndZone(){
+        console.log(this.stock_active)
+        const response = await NodeZoneEdgeService.getNodeZoneEdge(this.stock_active)
+        const {nodes, zone, edge, matrix} = response.data
+        this.set_Stock(nodes, zone, edge, matrix)
+
+        console.log(nodes, zone, edge, matrix)
+
+    }
 
     setEdgePush(edge: Edge){
         this.edge.push(edge);
-        let json = JSON.stringify(this.edge);
-        sessionStorage.setItem("edge", json);
+        this.upgradeEdge()
     }
 
 
@@ -127,6 +148,7 @@ export default class Store {
 
     setSizeZon(name, color, active){
             this.sizeZon.push({
+                id_zone: null,
                 name: name,
                 color: color,
                 widtH: 200,
@@ -207,6 +229,10 @@ export default class Store {
     upgradePlanActive() {
         let json = JSON.stringify(this.stock_active);
         sessionStorage.setItem("stock_active", json);
+    }
+    upgradeEdge(){
+        let json = JSON.stringify(this.edge);
+        sessionStorage.setItem("edge", json);
     }
 
     setRotation(idA: number, idB: number, long: number, rotade: number, centerX: number, centerY: number) {
@@ -343,7 +369,7 @@ export default class Store {
             this.setPlan(plan)
         }
         if (sessionStorage.getItem("stock_active")) {
-            const stock_active = JSON.parse(sessionStorage.getItem("stock_active"))
+            const stock_active = await JSON.parse(sessionStorage.getItem("stock_active"))
             this.setStockActive(stock_active)
         }
         if (sessionStorage.getItem("edge")) {

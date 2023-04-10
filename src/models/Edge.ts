@@ -1,4 +1,5 @@
 export interface Edge{
+    id_edge: number,
     A: string,
     B: string,
     long: number,

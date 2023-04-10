@@ -40,6 +40,7 @@ const PlanMain = () => {
             // rotation: store.idGraph[j].rotation
         }
     }
+
     async function setFunc(){
         await setMyModal(true);
         await setRender_line(!render_line);

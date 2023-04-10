@@ -11,7 +11,7 @@ const SelectMain = observer(() => {
     }
     useEffect(()=>{
         console.log("AAAA", store.stock_active, store.plan[store.stock_active-1]?.id_stock,  store.plan[store.stock_active-1]?.name)
-
+        store.getNodeAndZone();
     },[store.stock_active])
 
     return (
