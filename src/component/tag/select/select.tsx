@@ -15,10 +15,10 @@ const Selected = ({setActive, nameLabel, objMap, ID}) => {
             <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                onChange={(e)=>{if(e.target.value !== "none"){setActive(e.target.value)} else {setActive(0)}}}
+                onChange={(e)=>{if(e.target.value !== 0){setActive(e.target.value)} else {setActive(0)}}}
                 label="111"
             >
-                <MenuItem value={"none"}>
+                <MenuItem value={0}>
                     <em>None</em>
                 </MenuItem>
                 {objMap.map((el, index)=>

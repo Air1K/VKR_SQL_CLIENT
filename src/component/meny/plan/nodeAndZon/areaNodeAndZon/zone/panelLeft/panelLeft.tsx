@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styles from "./stylePanelLeft.module.sass";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAnglesLeft} from "@fortawesome/free-solid-svg-icons";
+import {Context} from "../../../../../../../index";
 // <FontAwesomeIcon icon="fa-light fa-pipe" />
 //<FontAwesomeIcon icon="fa-solid fa-grip-lines-vertical" />
 //<FontAwesomeIcon icon="fa-solid fa-caret-left" />
@@ -13,7 +14,7 @@ const PanelLeft = ({
                        setLine, idVisible, setIdVisible, nameVisible,
                        setNameVisible, edit
                    }) => {
-
+    const {store} = useContext(Context);
     const [onClocChek, setOnClocChek] = useState(true)
     const [classStyle_leftBlokAnim, setClassStyle_leftBlokAnim] = useState(styles.main_left)
     const [classStyle_icoAnim, setClassStyle_icoAnim] = useState(styles.a_ico)
@@ -39,6 +40,7 @@ const PanelLeft = ({
                                id="imgInp"
                                onChange={(e) => {
                                    setImgFon(URL.createObjectURL(e.target.files[0]))
+                                   store.setImg(e.target.files[0]);
                                }}
                                disabled={!edit}/>
                     </label>

@@ -1,5 +1,5 @@
 import $api from "../http";
-import {AxiosResponse} from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {AuthResponse} from "../models/response/AuthResponse";
 import {Graph} from "../models/Graph";
 import {SizeZon} from "../models/SizeZon";
@@ -11,5 +11,19 @@ export  default class NodeZoneEdgeService {
     }
     static async getNodeZoneEdge(stockId: number): Promise<AxiosResponse> {
         return $api.post<AuthResponse>('/node-zone-edge/get', {stockId})
+    }
+
+    static async postImg(img, stock){
+        console.log(stock)
+        const formData = new FormData();
+
+        formData.append('stokID', stock);
+        formData.append('file', img)
+        console.log(formData)
+        return  $api.post('/node-zone-edge/addImg', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        })
     }
 }

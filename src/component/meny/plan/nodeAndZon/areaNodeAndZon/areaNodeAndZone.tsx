@@ -158,7 +158,7 @@ const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, se
         <div className={styles.main_app}>
             <div ref={parentRef} className={styles.mainAreaNodeAndZon}>
                 <div className={styles.img_container}>
-                    <img className={styles.img} src={imgFon} alt=""/>
+                    <img className={styles.img} src={ imgFon ? imgFon : `${store.plan[store.stock_active-1]?.url}`} alt=""/>
                 </div>
 
                 <AreaMotion

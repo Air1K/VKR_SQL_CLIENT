@@ -24,7 +24,7 @@ export default class Store {
     user = {} as IUser //Таблица бл
     plan: Plan[] = []; //Таблица бл
     edge: Edge[] = []; //Таблица бл
-
+    img;
     left = 0;
 
     Rotation: Rotation[] = [];
@@ -52,6 +52,10 @@ export default class Store {
         this.stock_active = stock_active;
         this.upgradePlanActive();
         console.log("Отработал актив")
+    }
+
+    setImg(img){
+        this.img = img
     }
 
     async setPlanAdd(name){
@@ -89,24 +93,23 @@ export default class Store {
     setEdge(edge: Edge[]){
         this.edge = edge
     }
-    set_Stock(nodes, zone, edge, matrix){
+    set_Stock(nodes, zone, edge, matrix, img){
         this.idGraph = nodes
         this.sizeZon = zone
         this.edge = edge
         this.matrixsmesh = matrix
-
+        this.img = img
         this.upgradeStore()
         this.upgradeSizeZon()
         this.upgradeEdge()
         this.upgradeStoreMatrix()
-
         this.matrixAndZone()
     }
     async getNodeAndZone(){
         console.log(this.stock_active)
         const response = await NodeZoneEdgeService.getNodeZoneEdge(this.stock_active)
-        const {nodes, zone, edge, matrix} = response.data
-        this.set_Stock(nodes, zone, edge, matrix)
+        const {nodes, zone, edge, matrix, img} = response.data
+        this.set_Stock(nodes, zone, edge, matrix, img)
 
         console.log(nodes, zone, edge, matrix)
 
@@ -284,7 +287,10 @@ export default class Store {
     async saveBd(){
         try {
             const response = await NodeZoneEdgeService.addNodeZoneEdge(this.idGraph, this.sizeZon, this.matrixsmesh, this.edge)
-            console.log(response)
+            console.log(this.stock_active)
+            const responseImg =await NodeZoneEdgeService.postImg(this.img, this.stock_active)
+            await this.getStock()
+            console.log(response, responseImg)
         }
         catch (e) {
             console.log(e)
