@@ -288,7 +288,7 @@ export default class Store {
         try {
             const response = await NodeZoneEdgeService.addNodeZoneEdge(this.idGraph, this.sizeZon, this.matrixsmesh, this.edge)
             console.log(this.stock_active)
-            if(!this.img){
+            if(this.img){
                 await NodeZoneEdgeService.postImg(this.img, this.stock_active)
             }
             await this.getStock()
