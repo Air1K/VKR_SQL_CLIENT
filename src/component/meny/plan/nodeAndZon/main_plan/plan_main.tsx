@@ -43,10 +43,6 @@ const PlanMain = () => {
         }
     }
 
-    useEffect(()=>{
-        store.getNodeAndZone();
-    },[])
-
     async function setFunc(){
         await setMyModal(true);
         await setRender_line(!render_line);
@@ -67,8 +63,6 @@ const PlanMain = () => {
         <div className={styles.mainNodeAndConnect}>
             <div className={styles.componentNodeAndConnect}>
                 <InputTochek
-                    render_line={render_line}
-                    setRender_line={setRender_line}
                     editNodeS={editNodeS}
                     setEditNodeS={setEditNodeS}
                     setMyModal={setMyModal}
@@ -100,20 +94,28 @@ const PlanMain = () => {
                     </p>
                 </div>
                 <Area/>
-                <MyModal visible={visibleDell} setVisible={setVisibleDell}>
-                    <DellBlock setVisible={setVisibleDell}  setMyModal = {setMyModal} setName = {setName}/>
-                </MyModal>
-                <MyModal visible={myModal} setVisible={setMyModal}>
+                {visibleDell&&<MyModal visible={visibleDell} setVisible={setVisibleDell}>
+                    <DellBlock setVisible={setVisibleDell} setMyModal={setMyModal} setName={setName}/>
+                </MyModal>}
+                {myModal&&<MyModal visible={myModal} setVisible={setMyModal}>
                     <h6>Вы уверенны что хотите удалить {name.length === 1 ? <p>узел {name?.[0]}</p> :
                         <p>связь {name?.[0]} к {name?.[1]}</p>}</h6>
-                    <button onClick={ ()=>{ func_async(); setVisibleDell(false);}}>Да</button>
-                    <button onClick={()=>{ setMyModal(false); console.log(name)}}>Нет</button>
-                </MyModal>
-                <MyModal visible={myModalZone} setVisible={setMyModalZone}>
+                    <button onClick={() => {
+                        func_async();
+                        setVisibleDell(false);
+                    }}>Да
+                    </button>
+                    <button onClick={() => {
+                        setMyModal(false);
+                        console.log(name)
+                    }}>Нет
+                    </button>
+                </MyModal>}
+                {myModalZone&&<MyModal visible={myModalZone} setVisible={setMyModalZone}>
                     <DellZone
-                        setMyModalZone = {setMyModalZone}
+                        setMyModalZone={setMyModalZone}
                     />
-                </MyModal>
+                </MyModal>}
             </div>
         </div>
     );

@@ -191,11 +191,12 @@ export default class Store {
     async checkAuth() {
         try {
             const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true});
-            console.log(response);
-            localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
-
             this.setUser(response.data.user);
+            console.log(response);
+            this.setAuth(true);
+            localStorage.setItem('token', response.data.accessToken);
+            await this.getStock();
+            this.update();
 
         } catch (e) {
             console.log(e.response?.data?.message);
@@ -346,7 +347,7 @@ export default class Store {
     }
 
 
-    async update() {
+     update() {
         if (sessionStorage.getItem("graph")) {
             const mass = JSON.parse(sessionStorage.getItem("graph"))
             this.setGraph(mass)
@@ -377,7 +378,7 @@ export default class Store {
             this.setPlan(plan)
         }
         if (sessionStorage.getItem("stock_active")) {
-            const stock_active = await JSON.parse(sessionStorage.getItem("stock_active"))
+            const stock_active =  JSON.parse(sessionStorage.getItem("stock_active"))
             this.setStockActive(stock_active)
         }
         if (sessionStorage.getItem("edge")) {
@@ -394,7 +395,7 @@ export default class Store {
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
-
+            await this.getStock();
 
         } catch (e) {
             console.log(e.response?.data?.message);

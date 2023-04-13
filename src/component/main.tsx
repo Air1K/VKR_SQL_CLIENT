@@ -1,4 +1,4 @@
-import React, {useContext, useState, memo} from 'react';
+import React, {useContext, useState, memo, useEffect} from 'react';
 import {Context} from "../index";
 import {Link} from "react-router-dom";
 import './main_style.sass'
@@ -13,28 +13,24 @@ import NewUnits from "./meny/plan/newUnitstype/NewUnits";
 
 const Main = observer(() => {
     console.log("Рендер main ____________________________________")
-
     const {store} = useContext(Context);
+    console.log(store.stock_active)
     const [visible, setVisible] = useState(false)
     const [visibleZon, setVisibleZon] = useState(false)
     const [visibleUnits, setVisibleUnits] = useState(false)
 
-    // const RenderLog = () => {
-    //     if (!store.isAuth) {
-    //         return (<div className={styles.autorisation}>
-    //             Вы не прошли авторизацию
-    //             <Link to="/authorization">Авторизироваться</Link>
-    //         </div>)
-    //     }
-    // }
-
+    useEffect(()=>{
+        async function getPlan(){
+            await store.getNodeAndZone();
+        }
+        getPlan()
+    }, [store.stock_active])
 
     const RoleFunck = () => {
         if (store.user.role === 'storekeeper') {
 
             return (
                 <div className={styles.div_main}>
-                    {/*{store.stock_active}*/}
                     <nav role="navigation" className="primary-navigation">
                         <ul>
                             <li><a href="#" data-hover="Сформировать план склада">План склада</a>
@@ -42,7 +38,7 @@ const Main = observer(() => {
                                     <li><a href="#" onClick={() => {
                                         setVisible(true)
                                     }}>Создать план</a></li>
-                                    <li><Link to={"plan/" + store.plan[store.stock_active - 1]?.name + "/plan"}>Создать
+                                    <li><Link to={`plan/${store.plan[store.stock_active - 1]?.name}/plan`}>Создать
                                         точки и зоны</Link></li>
                                     <li><a href="#" onClick={() => {
                                         setVisibleZon(true)
@@ -53,9 +49,9 @@ const Main = observer(() => {
                                     <li><a href="#">Отобразить план</a></li>
                                 </ul>
                             </li>
-                            <li><Link to={"plan/" + store.plan[store.stock_active - 1]?.name + "/search"}
+                            <li><Link to={`plan/${store.plan[store.stock_active - 1]?.name}/search`}
                                       data-hover="Найти оптимальный маршрут">Оптимальный маршрут</Link></li>
-                            <li><Link to={"plan/" + store.plan[store.stock_active - 1]?.name + "/otchet"}
+                            <li><Link to={`plan/${store.plan[store.stock_active - 1]?.name}/otchet`}
                                       data-hover="Сформировать отчет">Отчеты о маршрутах</Link></li>
                             <li><Link to="/authorization" data-hover="Exit" onClick={async () => {
                                 await store.logoutE()
@@ -118,9 +114,6 @@ const Main = observer(() => {
             <div className={styles.fon}>
                 <h2 style={{textAlign: "center", margin: 0}}>Главное окно АС"Складская логистика"</h2>
                 <RoleFunck/>
-                {/*{store.isAuth ?*/}
-                {/*    (<RoleFunck/>) : (<RenderLog/>)}*/}
-
             </div>
         </div>
 

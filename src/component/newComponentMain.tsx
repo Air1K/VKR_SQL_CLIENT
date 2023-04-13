@@ -6,7 +6,7 @@ const NewComponentMain = () => {
     const {store} = useContext(Context);
     return (
         <div>
-            {store.isAuth ? (<Navigate to={'/main'} />):(<Navigate to={'/authorization'} />)}
+            {/*{store.isAuth ? ):(<Navigate to={'/authorization'} />)}*/}
         </div>
 
     );

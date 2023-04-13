@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import styles from "./stylesBlock.module.sass";
 import {Context} from "../../../../../index";
 
-const InputTochek = ({render_line, setRender_line, editNodeS, setEditNodeS, setMyModal, setName}) => {
+const InputTochek = ({editNodeS, setEditNodeS, setMyModal, setName}) => {
     console.log("Рендер InputTochek ____________________________________")
 
     const {store} = useContext(Context);

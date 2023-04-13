@@ -1,4 +1,4 @@
-import React, {createRef, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import React, {memo, useContext, useEffect, useMemo, useRef, useState} from 'react';
 import styles from './styleAreaAndZone.module.sass'
 import {Context} from "../../../../../index";
 import AreaMotion from "./areaMotion/areaMotion";
@@ -228,4 +228,4 @@ const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, se
     );
 };
 
-export default AreaNodeAndZone;
+export default memo(AreaNodeAndZone);

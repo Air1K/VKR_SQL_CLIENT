@@ -1,15 +1,14 @@
-import React, {useContext} from 'react';
+import React, {useContext, memo, useMemo, useEffect} from 'react';
 import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
 
-const SelectMain = ()=> {
+const SelectMain = observer(()=> {
     console.log("Рендер SelectMain ____________________________________")
 
     const {store} = useContext(Context);
-
+    console.log(store.isAuth)
     const planStock = (event)=>{
         store.setStockActive(store.plan.findIndex(el => el.id_stock === Number(event.target.value)) + 1);
-        console.log(store.plan[store.stock_active-1]?.name)
     }
 
     return (
@@ -28,6 +27,6 @@ const SelectMain = ()=> {
             </select>
         </div>
     );
-};
+});
 
-export default observer(SelectMain);
+export default SelectMain;

@@ -63,10 +63,8 @@ const Authorization = () => {
 
         if (!(emailError || passwordError)) {
             await store.login(email, password);
-
             console.log(store.isAuth);
         }
-
     }
 
     useEffect(() => {
