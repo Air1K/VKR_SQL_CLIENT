@@ -5,6 +5,8 @@ import {Context} from "../../../../../../index";
 
 
 const AreaMotion = ({ parentRef, editNode, editNodeEnd, checkDrag, nameVisible, idVisible, graphEl,activeId, active}) => {
+    console.log("Рендер areaMotion ____________________________________")
+
     const controls = useDragControls()
     const {store} = useContext(Context);
 

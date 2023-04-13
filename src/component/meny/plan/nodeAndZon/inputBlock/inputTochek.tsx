@@ -3,8 +3,9 @@ import styles from "./stylesBlock.module.sass";
 import {Context} from "../../../../../index";
 
 const InputTochek = ({render_line, setRender_line, editNodeS, setEditNodeS, setMyModal, setName}) => {
-    const {store} = useContext(Context);
+    console.log("Рендер InputTochek ____________________________________")
 
+    const {store} = useContext(Context);
     const [lengthidGraph, setLengthidGraph] = useState(store.idGraph.length)
     useEffect(()=>{
         setLengthidGraph(store.idGraph.length)

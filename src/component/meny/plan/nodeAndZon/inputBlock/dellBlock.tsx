@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 
 const DellBlock = ({setVisible, setMyModal, setName}) => {
+
+    console.log("Рендер DellBlock ____________________________________")
     const [dellA, setDellA] = useState('')
     const [dellB, setDellB] = useState('')
     return (

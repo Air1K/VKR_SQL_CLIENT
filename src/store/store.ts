@@ -24,7 +24,7 @@ export default class Store {
     user = {} as IUser //Таблица бл
     plan: Plan[] = []; //Таблица бл
     edge: Edge[] = []; //Таблица бл
-    img;
+    img = null;
     left = 0;
 
     Rotation: Rotation[] = [];
@@ -110,9 +110,7 @@ export default class Store {
         const response = await NodeZoneEdgeService.getNodeZoneEdge(this.stock_active)
         const {nodes, zone, edge, matrix, img} = response.data
         this.set_Stock(nodes, zone, edge, matrix, img)
-
         console.log(nodes, zone, edge, matrix)
-
     }
 
     setEdgePush(edge: Edge){
@@ -196,7 +194,7 @@ export default class Store {
             console.log(response);
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
-            await this.getStock();
+
             this.setUser(response.data.user);
 
         } catch (e) {
@@ -288,7 +286,9 @@ export default class Store {
         try {
             const response = await NodeZoneEdgeService.addNodeZoneEdge(this.idGraph, this.sizeZon, this.matrixsmesh, this.edge)
             console.log(this.stock_active)
-            if(this.img){
+            console.log(this.img)
+            console.log(this.img !== null)
+            if(this.img !== null){
                 await NodeZoneEdgeService.postImg(this.img, this.stock_active)
             }
             await this.getStock()

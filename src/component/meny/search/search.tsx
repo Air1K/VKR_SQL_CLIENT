@@ -6,6 +6,8 @@ import Selected from "../../tag/select/select";
 import {observer} from "mobx-react-lite";
 
 const Search = observer(() => {
+    console.log("Рендер Search ____________________________________")
+
     const {store} = useContext(Context);
     const [G1, setG1] = useState('')
     const [G2, setG2] = useState('')
@@ -98,7 +100,7 @@ const Search = observer(() => {
                 <div className={styles.stringLable}>
                     <div>
                         <span>Выберите кротчайший маршрут: &nbsp; &nbsp;</span>
-                        <Selected activeId={activeId} setActiveID={setActiveID} setActive={setActive}/>
+                        <Selected setActive={setActiveID} nameLabel={"Кротчайший маршрут"} objMap={store.mass_putei_exit} ID={"id"}/>
                     </div>
                     {active ? (
                         <div style={{display: "block"}}>

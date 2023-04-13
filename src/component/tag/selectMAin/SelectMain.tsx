@@ -1,18 +1,16 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
 
-const SelectMain = observer(() => {
+const SelectMain = ()=> {
+    console.log("Рендер SelectMain ____________________________________")
+
     const {store} = useContext(Context);
 
     const planStock = (event)=>{
         store.setStockActive(store.plan.findIndex(el => el.id_stock === Number(event.target.value)) + 1);
         console.log(store.plan[store.stock_active-1]?.name)
     }
-    useEffect(()=>{
-        console.log("AAAA", store.stock_active, store.plan[store.stock_active-1]?.id_stock,  store.plan[store.stock_active-1]?.name)
-        store.getNodeAndZone();
-    },[store.stock_active])
 
     return (
         <div className={'input-field '} style={{display: "flex", alignItems: "center"}}>
@@ -30,6 +28,6 @@ const SelectMain = observer(() => {
             </select>
         </div>
     );
-});
+};
 
-export default SelectMain;
+export default observer(SelectMain);

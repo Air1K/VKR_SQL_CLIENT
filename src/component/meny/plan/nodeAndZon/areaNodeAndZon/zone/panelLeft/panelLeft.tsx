@@ -14,6 +14,8 @@ const PanelLeft = ({
                        setLine, idVisible, setIdVisible, nameVisible,
                        setNameVisible, edit
                    }) => {
+    console.log("Рендер PanelLeft ____________________________________")
+
     const {store} = useContext(Context);
     const [onClocChek, setOnClocChek] = useState(true)
     const [classStyle_leftBlokAnim, setClassStyle_leftBlokAnim] = useState(styles.main_left)

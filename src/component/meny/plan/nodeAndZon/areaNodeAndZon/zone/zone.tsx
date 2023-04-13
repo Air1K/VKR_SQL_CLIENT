@@ -5,6 +5,8 @@ import {SizeZon} from "../../../../../../models/SizeZon";
 import {motion, useDragControls} from "framer-motion";
 
 const Zone = ({myModalZone, parentRef, setMyModalZone, draggableEl, setDraggableEl, visibleZon, zon}) => {
+    console.log("Рендер Zone ____________________________________")
+
     const controls = useDragControls()
     const {store} = useContext(Context);
 

@@ -1,6 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React, {memo, useContext, useState} from 'react';
 import {Context} from "../../../../index";
 const BlokNewPlan = ({setVisible}) => {
+    console.log("Рендер blockNewPlan ____________________________________")
+
     const [name_plan, setNamePlan] = useState('')
     const {store} = useContext(Context);
 
@@ -21,4 +23,4 @@ const BlokNewPlan = ({setVisible}) => {
     );
 };
 
-export default BlokNewPlan;
+export default memo(BlokNewPlan);

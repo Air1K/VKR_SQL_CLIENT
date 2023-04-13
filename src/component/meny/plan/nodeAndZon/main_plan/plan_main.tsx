@@ -9,9 +9,11 @@ import {Context} from "../../../../../index";
 import MyModal from "../../../myModal/myModal";
 import DellBlock from "../inputBlock/dellBlock";
 import DellZone from "../areaNodeAndZon/zone/dellZone";
-
+import {observer} from "mobx-react-lite";
 
 const PlanMain = () => {
+    console.log("Рендер Plan_Main____________________________________")
+
     const {store} = useContext(Context);
     const edit = true
     const [editNodeS, setEditNodeS] = useState(false);
@@ -20,7 +22,7 @@ const PlanMain = () => {
     const [myModalZone, setMyModalZone] = useState(false)
     const [name, setName] = useState([])
     const [visibleDell, setVisibleDell] = useState(false)
-    store.update();
+
     let obj = []
     for (let j = 0; j < store.idGraph.length; j++) {
         obj[j] = {
@@ -40,6 +42,10 @@ const PlanMain = () => {
             // rotation: store.idGraph[j].rotation
         }
     }
+
+    useEffect(()=>{
+        store.getNodeAndZone();
+    },[])
 
     async function setFunc(){
         await setMyModal(true);
@@ -113,4 +119,4 @@ const PlanMain = () => {
     );
 };
 
-export default PlanMain;
+export default observer(PlanMain);

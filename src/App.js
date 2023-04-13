@@ -19,21 +19,27 @@ import {observer} from "mobx-react-lite";
 import {Context} from "./index";
 
 const App = observer(()=> {
+    console.log("Рендер App____________________________________")
     const {store} = useContext(Context);
     // const [roles, setRoles] = useState(store.user.role);
-    useEffect(()=> {
-        if(localStorage.getItem('token')){
-            store.checkAuth();
-            store.update()
+    useEffect( ()=> {
+        async function check(){
+            if(localStorage.getItem('token')){
+                await store.checkAuth();
+                if(store.isAuth){
+                    await store.getStock();
+                }
+                await store.update();
+            }
         }
+        check();
+
     }, [])
     useEffect(() => {
         // setRoles(store.user.role)
     }, [store.stock_active, store.user.role])
-    const Role = () => {
-        {
+    const Role = observer(() => {
 
-        }
         if (store.user?.role === 'storekeeper') {
             return (
                 <Routes>
@@ -72,14 +78,14 @@ const App = observer(()=> {
 
             )
         }
-    }
+    })
     return (
         <div className={styles.app}>
             <BrowserRouter>
-                <Role/>
+                {store.isAuth ? <Role/> : <Authorization/>}
             </BrowserRouter>
 
         </div>
     );
-})
+});
 export default App;

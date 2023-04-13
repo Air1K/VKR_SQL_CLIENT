@@ -1,6 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React, {memo, useContext, useState} from 'react';
 import {Context} from "../../../../index";
 const NewZone = ({setVisible}) => {
+    console.log("Рендер NewZone ____________________________________")
+
     const [name, setName] = useState('')
     const {store} = useContext(Context);
     return (
@@ -21,4 +23,4 @@ const NewZone = ({setVisible}) => {
     );
 };
 
-export default NewZone;
+export default memo(NewZone);

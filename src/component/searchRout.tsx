@@ -4,6 +4,7 @@ import Search from "./meny/search/search";
 import styles from "./vvodPlanaStyle.module.sass";
 
 const SearchRout = () => {
+    console.log("Рендер SearchRout_КНОПКА назад ____________________________________")
     return (
         <div className={styles.main}>
             <BackIco/>

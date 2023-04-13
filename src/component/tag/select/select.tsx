@@ -8,9 +8,9 @@ import Select  from '@mui/material/Select';
 const Selected = ({setActive, nameLabel, objMap, ID}) => {
 
 
-
+    console.log("Рендер Select ____________________________________")
     return (
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <FormControl variant="standard" sx={{ m: 0, minWidth: "100%" }}>
             <InputLabel id="demo-simple-select-standard-label">{nameLabel}</InputLabel>
             <Select
                 labelId="demo-simple-select-standard-label"

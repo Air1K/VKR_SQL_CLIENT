@@ -8,6 +8,8 @@ import styles from './stuleAuth.module.sass'
 
 const Authorization = () => {
 
+    console.log("Рендер Authorization ____________________________________")
+
     const {store} = useContext(Context);
 
 

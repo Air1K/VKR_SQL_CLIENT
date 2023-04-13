@@ -5,6 +5,7 @@ import styless from '../../app.module.sass'
 import {Link} from "react-router-dom";
 
 const BackIco = () => {
+    console.log("Рендер BackIco_КНОПКА____________________________________")
     return (
         <div className={styless.container}>
             <Link className={styless.a_ico} to = "/main">

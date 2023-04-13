@@ -3,6 +3,8 @@ import {Context} from "../../../../../../index";
 import Selected from "../../../../../tag/select/select";
 
 const DellZone = ({setMyModalZone}) => {
+    console.log("Рендер DellZone ____________________________________")
+
     const {store} = useContext(Context);
     const [name, setName] = useState('')
     const [color, setColor] = useState('')
@@ -18,7 +20,7 @@ const DellZone = ({setMyModalZone}) => {
                     Название зоны:
                     <input type="text" placeholder="Название зоны" value={name} onChange={event => setName(event.target.value)}/>
                     <Selected setActive={setActive} nameLabel={"Тип зоны"} objMap={store.type_zone} ID={"id_type_zone"}/>
-                    Цвет зоны: <br/>
+                    <br/><br/> Цвет зоны: <br/>
                     <input type="color" placeholder="Название зоны" value={color} onChange={event => setColor(event.target.value)}/><br/><br/>
                     <button onClick={async ()=>{
                         await store.setSizeZon(name, color, active)

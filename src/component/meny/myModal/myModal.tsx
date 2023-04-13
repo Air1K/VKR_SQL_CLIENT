@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styles from "./stylesMyModal.module.sass"
 const MyModal = ({children, visible, setVisible}) => {
+    console.log("Рендер MyModal ____________________________________")
+
     // const visible = props.visible
     const rootClasses = [styles.myModal]
     if(visible){
@@ -16,4 +18,4 @@ const MyModal = ({children, visible, setVisible}) => {
     );
 };
 
-export default MyModal;
+export default memo(MyModal);

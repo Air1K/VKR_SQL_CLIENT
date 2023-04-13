@@ -5,6 +5,8 @@ import Selected from "../../../../tag/select/select";
 
 const Block = ({render_line, setRender_line, setVisibleDell, setMyModalZone}) => {
 
+    console.log("Рендер Block ____________________________________")
+
     const {store} = useContext(Context);
 
     const [G1, setG1] = useState('')

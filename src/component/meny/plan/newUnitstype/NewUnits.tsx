@@ -1,6 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React, {memo, useContext, useState} from 'react';
 import {Context} from "../../../../index";
 const NewUnits = ({setVisible}) => {
+    console.log("Рендер newUnitsType ____________________________________")
+
     const [name, setName] = useState('')
     const {store} = useContext(Context);
     return (
@@ -21,4 +23,4 @@ const NewUnits = ({setVisible}) => {
     );
 };
 
-export default NewUnits;
+export default memo(NewUnits);

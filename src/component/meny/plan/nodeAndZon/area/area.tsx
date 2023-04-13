@@ -4,6 +4,8 @@ import {Context} from "../../../../../index";
 import styles from './styleArea.module.sass'
 
 const Area = () => {
+    console.log("Рендер Area ____________________________________")
+
     const {store} = useContext(Context);
     console.log(store.idGraph)
     let length_mass_graph = 0;

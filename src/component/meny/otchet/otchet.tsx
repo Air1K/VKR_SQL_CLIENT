@@ -4,6 +4,8 @@ import styles from '../../vvodPlanaStyle.module.sass'
 import styles_1 from "../search/stylesSearch.module.sass";
 
 const Otchet = () => {
+    console.log("Рендер Otchet ____________________________________")
+
     return (
         <div className={styles.main}>
             <BackIco/>

@@ -9,6 +9,9 @@ import PanelLeft from "./zone/panelLeft/panelLeft";
 
 
 const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, setMyModalZone, edit, activeId, active}) => {
+    console.log("Рендер AreaNodeAndZone ____________________________________")
+
+
     const {store} = useContext(Context);
     const [obj_Rotation, setObj_Rotation] = useState<Rotation[]>(store.Rotation)
     const [graph, setGraph] = useState<Graph[]>(store.idGraph)
