@@ -4,10 +4,10 @@ import styles from './stylesSearch.module.sass'
 import AreaNodeAndZone from "../plan/nodeAndZon/areaNodeAndZon/areaNodeAndZone";
 import Selected from "../../tag/select/select";
 import {observer} from "mobx-react-lite";
-
+import DateTime from "../../hooks-time/hooks-time"
 const Search = observer(() => {
     console.log("Рендер Search ____________________________________")
-
+    const [date, setDate] = useState(`${DateTime}`)
     const {store} = useContext(Context);
     const [G1, setG1] = useState('')
     const [G2, setG2] = useState('')
@@ -64,9 +64,9 @@ const Search = observer(() => {
         return null;
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(active)
-    },[active])
+    }, [active])
 
     return (
         <div className={styles.block}>
@@ -81,8 +81,8 @@ const Search = observer(() => {
                 Введите конечную точку
                 <input type="text" value={G2} onChange={event => setG2(event.target.value)}
                        placeholder="Введите второй граф"/>
-                Дата формирования
-                <input type="date"/>
+                Дата и время формирования
+                <input type="datetime-local" value={date} onChange={event => setDate(event.target.value)}/>
                 <button onClick={async () => {
                     try {
                         await store.search(G1, G2, name_route);
@@ -96,11 +96,16 @@ const Search = observer(() => {
                 </button>
             </div>
             <div className={styles.main}>
-                <h5>Сводка о маршруте {active?('"' + store.mass_putei_exit[activeId]?.name+'"'):(null)}</h5>
+                <h5>Сводка о маршруте {active ? ('"' + store.mass_putei_exit[activeId]?.name + '"') : (null)}</h5>
                 <div className={styles.stringLable}>
-                    <div>
-                        <span>Выберите кротчайший маршрут: &nbsp; &nbsp;</span>
-                        <Selected setActive={setActiveID} nameLabel={"Кротчайший маршрут"} objMap={store.mass_putei_exit} ID={"id"}/>
+                    <div className={styles.search_div}>
+                        <div style={{marginTop: "16px"}}>Выберите кротчайший маршрут: &nbsp; &nbsp;</div>
+                        <div className={styles.select}><Selected setActive={setActiveID}
+                                        nameLabel={"Кротчайший маршрут"}
+                                        objMap={store.mass_putei_exit}
+                                        ID={"id"}/>
+                        </div>
+
                     </div>
                     {active ? (
                         <div style={{display: "block"}}>
@@ -111,9 +116,9 @@ const Search = observer(() => {
                             </div>
                             <div>
                                 <span>Маршрут: </span> &nbsp;
-                                    {(store.mass_putei_exit[activeId]?.interval_node?.map((node_, indexe) => <span
-                                        className={styles.puti} key={indexe}> {store.idGraph[node_]?.num}&nbsp; <Strelka
-                                        ellement={indexe}/> &nbsp;</span>))}
+                                {(store.mass_putei_exit[activeId]?.interval_node?.map((node_, indexe) => <span
+                                    className={styles.puti} key={indexe}> {store.idGraph[node_]?.num}&nbsp; <Strelka
+                                    ellement={indexe}/> &nbsp;</span>))}
                             </div>
 
                         </div>
@@ -124,13 +129,11 @@ const Search = observer(() => {
             <AreaNodeAndZone
                 obj={obj}
                 objCache={objCache}
-                render_line={render_line}
-                editNodeS={editNodeS}
                 myModalZone={myModalZone}
                 setMyModalZone={setMyModalZone}
                 edit={edit}
                 activeId={activeId}
-                active ={active}
+                active={active}
             />
         </div>
     );

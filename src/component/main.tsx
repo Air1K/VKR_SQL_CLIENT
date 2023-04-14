@@ -21,7 +21,10 @@ const Main = observer(() => {
 
     useEffect(()=>{
         async function getPlan(){
-            await store.getNodeAndZone();
+            if(store.stock_active !== null){
+                await store.getNodeAndZone();
+            }
+
         }
         getPlan()
     }, [store.stock_active])

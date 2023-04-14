@@ -1,14 +1,10 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, memo} from 'react';
 import styles from "./stylePanelLeft.module.sass";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAnglesLeft} from "@fortawesome/free-solid-svg-icons";
 import {Context} from "../../../../../../../index";
-// <FontAwesomeIcon icon="fa-light fa-pipe" />
-//<FontAwesomeIcon icon="fa-solid fa-grip-lines-vertical" />
-//<FontAwesomeIcon icon="fa-solid fa-caret-left" />
-//<FontAwesomeIcon icon="fa-solid fa-angles-left" />
 const PanelLeft = ({
-                       visibleZon, setVisibleZon, imgFon, setImgFon,
+                       visibleZon, setVisibleZon, setImgFon,
                        draggableEl, setDraggableEl, zone, setZone,
                        checkDrag, setCheckDrag, ves, setVes, line,
                        setLine, idVisible, setIdVisible, nameVisible,
@@ -137,7 +133,6 @@ const PanelLeft = ({
             </div>
             <div className={classStyle_icoAnim}
                  onClick={effects}>
-                {/*<div className={styles.ico}></div>*/}
                 <FontAwesomeIcon className={styles.ico} icon={faAnglesLeft}/>
             </div>
         </div>
@@ -145,4 +140,4 @@ const PanelLeft = ({
     );
 };
 
-export default PanelLeft;
+export default memo(PanelLeft);

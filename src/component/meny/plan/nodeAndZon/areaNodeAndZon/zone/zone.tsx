@@ -62,22 +62,12 @@ const Zone = ({myModalZone, parentRef, setMyModalZone, draggableEl, setDraggable
 
                         }}
                         whileTap={{boxShadow: "0px 0px 15px rgba(0,0,0,0.2)", cursor: "grabbing"}}
-                        // onDragEnd={()=>{
-                        //     console.log("BBBBBBBBBBB")
-                        //     setDraggableEl(false)
-                        // }}
                         dragControls={controls}
                         dragConstraints={parent_Ref}
-
-
                         className={classStyles_main}
                         style={{width: zone.widtH + "px", height: zone.heighT + "px"}}
                         initial={{y: zone.toP, x: zone.lefT}}
-                        // onDragEnd={()=>{setDraggableEl(false)}}
-                        // onDoubleClick={()=>{setDraggableEl(true)}}
                     >
-                        <div className={styles.content}>Ширина: {zone.widtH} <br/> Высота: {zone.heighT}</div>
-
                         <div className={styles.main_absolute}
                         style={{backgroundColor: zone.color, opacity: visibleZon / 100}}>
 

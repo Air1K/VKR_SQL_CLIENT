@@ -16,8 +16,6 @@ const PlanMain = () => {
 
     const {store} = useContext(Context);
     const edit = true
-    const [editNodeS, setEditNodeS] = useState(false);
-    const [render_line, setRender_line] = useState(false);
     const [myModal, setMyModal] = useState(false)
     const [myModalZone, setMyModalZone] = useState(false)
     const [name, setName] = useState([])
@@ -45,7 +43,6 @@ const PlanMain = () => {
 
     async function setFunc(){
         await setMyModal(true);
-        await setRender_line(!render_line);
         setMyModal(false)
     }
     async function func_async() {
@@ -63,13 +60,9 @@ const PlanMain = () => {
         <div className={styles.mainNodeAndConnect}>
             <div className={styles.componentNodeAndConnect}>
                 <InputTochek
-                    editNodeS={editNodeS}
-                    setEditNodeS={setEditNodeS}
                     setMyModal={setMyModal}
                     setName={setName}/>
                 <Block
-                    render_line={render_line}
-                    setRender_line={setRender_line}
                     setVisibleDell = {setVisibleDell}
                     setMyModalZone = {setMyModalZone}
 
@@ -77,8 +70,6 @@ const PlanMain = () => {
                 <AreaNodeAndZone
                     obj={obj}
                     objCache={objCache}
-                    render_line={render_line}
-                    editNodeS={editNodeS}
                     myModalZone = {myModalZone}
                     setMyModalZone = {setMyModalZone}
                     edit={edit}

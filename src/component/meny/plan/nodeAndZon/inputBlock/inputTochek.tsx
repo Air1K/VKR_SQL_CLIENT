@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import styles from "./stylesBlock.module.sass";
 import {Context} from "../../../../../index";
 
-const InputTochek = ({editNodeS, setEditNodeS, setMyModal, setName}) => {
+const InputTochek = ({setMyModal, setName}) => {
     console.log("Рендер InputTochek ____________________________________")
 
     const {store} = useContext(Context);
@@ -39,7 +39,7 @@ const InputTochek = ({editNodeS, setEditNodeS, setMyModal, setName}) => {
                     <br/>
                     Название узла:
                     <input type="text" placeholder="Название узла" value={name_usel} onChange={event => setNameUsel(event.target.value)} />
-                    <button onClick={async ()=>{await addGraph(await group(), 5, name_usel); await setEditNodeS(!editNodeS); setNameUsel('')}}>Добавить узел</button>
+                    <button onClick={async ()=>{await addGraph(await group(), 5, name_usel); setNameUsel('')}}>Добавить узел</button>
                     <button onClick={ ()=>{ setMyModal(true); const mass = []; mass.push(name_usel); setName(mass); setNameUsel('')}}>Удалить узел</button>
                 </div>
             </div>

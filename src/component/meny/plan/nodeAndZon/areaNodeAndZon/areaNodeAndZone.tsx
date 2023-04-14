@@ -6,15 +6,15 @@ import {Rotation} from "../../../../../models/Rotation";
 import {Graph} from "../../../../../models/Graph";
 import Zone from "./zone/zone";
 import PanelLeft from "./zone/panelLeft/panelLeft";
+import {observer} from "mobx-react-lite";
+import RotationJoin from "./RotationJoin";
 
 
-const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, setMyModalZone, edit, activeId, active}) => {
+const AreaNodeAndZone = ({obj, objCache, myModalZone, setMyModalZone, edit, activeId, active}) => {
     console.log("Рендер AreaNodeAndZone ____________________________________")
 
 
     const {store} = useContext(Context);
-    const [obj_Rotation, setObj_Rotation] = useState<Rotation[]>(store.Rotation)
-    const [graph, setGraph] = useState<Graph[]>(store.idGraph)
     console.log("Перезапись")
     const parentRef = useRef<HTMLDivElement>(null)
     const [checkDrag, setCheckDrag] = useState(false)
@@ -26,7 +26,7 @@ const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, se
     const [imgFon, setImgFon] = useState('');
     const [draggableEl, setDraggableEl] = useState(true)
     const [visibleZon, setVisibleZon] = useState('50')
-    let copy = Object.assign([], obj_Rotation)
+    let copy = Object.assign([], store.Rotation)
 
     let offseteNode = []
     for (let j = 0; j < store.idGraph.length; j++) {
@@ -123,29 +123,16 @@ const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, se
         obj[id].Y = offseteNode[id].Yoffs + obj[id].Y;
     }
 
-    async function editObj() {
-        await setObj_Rotation(copy);
-        await setGraph(obj);
-    }
 
     const editNodeDreagEnd = async (info, id) => {
 
         await editNodeDragF(id)
-        await editObj();
-        await store.editGraph(graph);
-        await store.set_Rotation(obj_Rotation);
-        console.log(obj, graph);
+        await store.editGraph(obj);
+        await store.set_Rotation(copy);
+
         // return
 
     }
-
-    useEffect(() => {
-        console.log("ОБЪЕКТ ИЗМЕНИЛСЯ -----------------------")
-        setObj_Rotation(store.Rotation);
-        setGraph(obj);
-
-        // console.log(store.Rotation)
-    }, [render_line, editNodeS]);
 
     const lineActive = (rotation)=>{
         for(let i =0; i<store.mass_putei_exit[activeId]?.interval_node.length; i++){
@@ -171,27 +158,11 @@ const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, se
                     checkDrag={checkDrag}
                     nameVisible={nameVisible}
                     idVisible={idVisible}
-                    graphEl={graph}
                     activeId={activeId}
                     active={active}
                 />
 
-                {
-                    store.Rotation.map((rotation, id) =>
-                        line ? <div key={id} className={styles.line} style={{
-                            width: rotation.long + "px",
-                            transform: "translateX(" + rotation.centerX + "px) translateY(" + rotation.centerY + "px) rotate(" + rotation.rotations + "deg)"
-                        }}>
-                            <div className={styles.lineVisible} style={active?lineActive(rotation):{}}></div>
-                            {ves ? <div style={{
-                                transform: "rotate(" + -rotation.rotations + "deg)",
-                                position: "absolute",
-                                zIndex: 9999
-                            }}>{store?.matrixsmesh[rotation?.idA][rotation?.idB]}</div> : null}
-
-                        </div> : null
-                    )
-                }
+                <RotationJoin line={line} active={active} lineActive={lineActive} ves={ves}/>
 
                 <Zone
                     myModalZone={myModalZone}
@@ -204,7 +175,6 @@ const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, se
                 />
                 <PanelLeft visibleZon={visibleZon}
                            setVisibleZon={setVisibleZon}
-                           imgFon={imgFon}
                            setImgFon={setImgFon}
                            draggableEl={draggableEl}
                            setDraggableEl={setDraggableEl}
@@ -228,4 +198,4 @@ const AreaNodeAndZone = ({obj, objCache, render_line, editNodeS, myModalZone, se
     );
 };
 
-export default memo(AreaNodeAndZone);
+export default observer(AreaNodeAndZone);

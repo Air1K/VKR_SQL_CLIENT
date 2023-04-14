@@ -37,7 +37,7 @@ export default class Store {
     matrixsmesh = [];
     mass_putei = [];
     mass_putei_exit: Route[] = [];
-    stock_active: number
+    stock_active: number = null
 
     constructor() {
         makeAutoObservable(this);
@@ -93,12 +93,11 @@ export default class Store {
     setEdge(edge: Edge[]){
         this.edge = edge
     }
-    set_Stock(nodes, zone, edge, matrix, img){
+    set_Stock(nodes, zone, edge, matrix){
         this.idGraph = nodes
         this.sizeZon = zone
         this.edge = edge
         this.matrixsmesh = matrix
-        this.img = img
         this.upgradeStore()
         this.upgradeSizeZon()
         this.upgradeEdge()
@@ -109,7 +108,7 @@ export default class Store {
         console.log(this.stock_active)
         const response = await NodeZoneEdgeService.getNodeZoneEdge(this.stock_active)
         const {nodes, zone, edge, matrix, img} = response.data
-        this.set_Stock(nodes, zone, edge, matrix, img)
+        this.set_Stock(nodes, zone, edge, matrix)
         console.log(nodes, zone, edge, matrix)
     }
 

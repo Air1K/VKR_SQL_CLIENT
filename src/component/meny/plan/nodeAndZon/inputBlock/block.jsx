@@ -3,7 +3,7 @@ import styles from './stylesBlock.module.sass'
 import {Context} from "../../../../../index";
 import Selected from "../../../../tag/select/select";
 
-const Block = ({render_line, setRender_line, setVisibleDell, setMyModalZone}) => {
+const Block = ({setVisibleDell, setMyModalZone}) => {
 
     console.log("Рендер Block ____________________________________")
 
@@ -29,21 +29,18 @@ const Block = ({render_line, setRender_line, setVisibleDell, setMyModalZone}) =>
                 <div className={styles.box}>
 
                     <div className={styles.box1}>
-                        Название зоны:
-                        <input type="text" value={nameS} onChange={(e) => {
-                            setNameS(e.target.value)
-                        }} placeholder='Название'/>
                         Введите первый узел:
                         <input type="text" value={G1} onChange={event => setG1(event.target.value)}
                                placeholder="Введите первый узел"/>
-                    </div>
-                    <div className={styles.box1}>
-                        Введите второй узел:
+                        Ведите второй узел:
                         <input type="text" value={G2} onChange={event => setG2(event.target.value)}
                                placeholder="Введите второй узел"/>
+                    </div>
+                    <div className={styles.box1}>
                         Введите расстояние между узлами:
                         <input type="number" value={ves} onChange={event => setVes(event.target.value)}
                                placeholder="Введите расстояние между узлами"/>
+                        Укажите единицы измерения
                         <Selected active={active} setActive={setActive} nameLabel={"Ед. измерения"} objMap={store.units_type} ID={"id_units_type"}/>
 
                         {/*Вид зоны*/}
@@ -66,7 +63,6 @@ const Block = ({render_line, setRender_line, setVisibleDell, setMyModalZone}) =>
                         id_units_type: active,
                         id_zone: null,
                     })
-                    await setRender_line(!render_line)
                 }}>Задать расстояние
                 </button>
                 <button title="Удаление связи двух графов" onClick={async () => {
