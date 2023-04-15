@@ -4,7 +4,8 @@ import styles from './stylesSearch.module.sass'
 import AreaNodeAndZone from "../plan/nodeAndZon/areaNodeAndZon/areaNodeAndZone";
 import Selected from "../../tag/select/select";
 import {observer} from "mobx-react-lite";
-import DateTime from "../../hooks-time/hooks-time"
+import DateTime from "../../hooks/hooks-time"
+import solution from '../../hooks/hooks-route'
 const Search = observer(() => {
     console.log("Рендер Search ____________________________________")
     const [date, setDate] = useState(`${DateTime}`)
@@ -84,13 +85,13 @@ const Search = observer(() => {
                 Дата и время формирования
                 <input type="datetime-local" value={date} onChange={event => setDate(event.target.value)}/>
                 <button onClick={async () => {
-                    try {
-                        await store.search(G1, G2, name_route);
-                        setActiveID(store.mass_putei_exit[store.mass_putei_exit.length - 1].id)
-                        setActive(true)
-                    } catch (e) {
-                        console.log(e);
-                    }
+
+                        // await store.search(G1, G2, name_route, date);
+                        // setActiveID(store.mass_putei_exit[store.mass_putei_exit.length - 1].id)
+                        // setActive(true)
+
+                        solution(store.idGraph, store.matrixsmesh, store.edge, 12, 8)
+
 
                 }}>Найти
                 </button>

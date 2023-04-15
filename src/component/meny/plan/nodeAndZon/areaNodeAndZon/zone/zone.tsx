@@ -4,17 +4,12 @@ import {Context} from "../../../../../../index";
 import {SizeZon} from "../../../../../../models/SizeZon";
 import {motion, useDragControls} from "framer-motion";
 
-const Zone = ({myModalZone, parentRef, setMyModalZone, draggableEl, setDraggableEl, visibleZon, zon}) => {
+const Zone = ({ draggableEl,  visibleZon, zon}) => {
     console.log("Рендер Zone ____________________________________")
 
     const controls = useDragControls()
     const {store} = useContext(Context);
 
-    const [state, setState] = useState(store.sizeZon)
-    // let initialState: SizeZon[] = store.sizeZon;
-    useEffect(() => {
-        setState(store.sizeZon)
-    }, [myModalZone])
     const parent_Ref = useRef<HTMLDivElement>(null)
     const [classStyles_main, setClassStyles_main] = useState(styles.main)
     useEffect(()=>{
@@ -30,7 +25,7 @@ const Zone = ({myModalZone, parentRef, setMyModalZone, draggableEl, setDraggable
         <div ref={parent_Ref}
              className={styles.area}>
             {(
-                state.map((zone, id) =>
+                store.sizeZon.map((zone, id) =>
                     <motion.div
                         key={id}
                         drag

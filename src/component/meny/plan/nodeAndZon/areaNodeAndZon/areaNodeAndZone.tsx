@@ -1,9 +1,7 @@
-import React, {memo, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import React, { useContext, useRef, useState} from 'react';
 import styles from './styleAreaAndZone.module.sass'
 import {Context} from "../../../../../index";
 import AreaMotion from "./areaMotion/areaMotion";
-import {Rotation} from "../../../../../models/Rotation";
-import {Graph} from "../../../../../models/Graph";
 import Zone from "./zone/zone";
 import PanelLeft from "./zone/panelLeft/panelLeft";
 import {observer} from "mobx-react-lite";
@@ -26,7 +24,6 @@ const AreaNodeAndZone = ({obj, objCache, myModalZone, setMyModalZone, edit, acti
     const [imgFon, setImgFon] = useState('');
     const [draggableEl, setDraggableEl] = useState(true)
     const [visibleZon, setVisibleZon] = useState('50')
-    let copy = Object.assign([], store.Rotation)
 
     let offseteNode = []
     for (let j = 0; j < store.idGraph.length; j++) {
@@ -50,70 +47,14 @@ const AreaNodeAndZone = ({obj, objCache, myModalZone, setMyModalZone, edit, acti
 
     console.log("Рендер areaNodeAndZone")
 
-    function EditLineDrag(id) {
 
-        if (store?.Rotation?.length === 0) {
-            return
-        } else {
-
-            for (let i = 0; i < store.Rotation?.length; i++) {
-                if (store.Rotation[i].idA === id || store.Rotation[i].idB === id) {
-                    const A = store.Rotation[i].idA;
-                    const B = store.Rotation[i].idB;
-
-                    const x1 = objCache[A].X;
-                    const y1 = objCache[A].Y;
-                    const x2 = objCache[B].X;
-                    const y2 = objCache[B].Y;
-                    console.log(obj)
-                    console.log(objCache)
-
-                    console.log(A, " - Ax ", objCache[A].X, "/// Ay ", objCache[A].Y)
-                    console.log(B, " - Bx ", objCache[B].X, "/// By ", objCache[B].Y)
-                    const katet1 = x1 - x2;
-                    const katet2 = y1 - y2;
-
-                    const longe = Math.round(Math.sqrt(Math.pow(katet1, 2) + Math.pow(katet2, 2)))
-                    const deg = (180 / Math.PI * Math.atan2(katet2, katet1)) + 180;
-
-                    const center_X = ((x1 + x2) / 2) - (longe / 2) + (25 / 2)
-                    const center_Y = ((y1 + y2) / 2)
-
-
-                    console.log(cash_1)
-                    cash_1[i].long = longe;
-                    cash_1[i].centerY = center_Y;
-                    cash_1[i].centerX = center_X;
-                    cash_1[i].rotations = deg;
-                    // obj2[i].centerX = centerX;
-                    // obj2[i].centerY = centerY;
-                    // obj2[i].long = long
-                    // obj2[i].rotations = deg;
-                    // let {centerX, centerY, long, rotations} = obj_Rotation[i];
-                    // store.set_Rotation(cash_1);
-                    copy[i].long = longe;
-                    copy[i].centerY = center_Y;
-                    copy[i].centerX = center_X;
-                    copy[i].rotations = deg;
-                    // console.log(obj2)
-                    // setObj_Rotation(cash_1);
-
-                    // console.log(obj_Rotation)
-                    // console.log(this.idGraph[i].rotation)
-                }
-            }
-        }
-    }
-
-
-    const editNodeDreag = async (info, id) => {
+    const editNodeDreag = (info, id) => {
 
         offseteNode[id].Xoffs = info.offset.x;
         offseteNode[id].Yoffs = info.offset.y;
         objCache[id].X = obj[id].X + offseteNode[id].Xoffs;
         objCache[id].Y = obj[id].Y + offseteNode[id].Yoffs;
         console.log(objCache[id].X, "info", objCache[id].Y);
-        EditLineDrag(id)
         console.log(obj)
         return;
     }
@@ -121,26 +62,16 @@ const AreaNodeAndZone = ({obj, objCache, myModalZone, setMyModalZone, edit, acti
     function editNodeDragF(id) {
         obj[id].X = offseteNode[id].Xoffs + obj[id].X;
         obj[id].Y = offseteNode[id].Yoffs + obj[id].Y;
+        store.editGraph(obj);
     }
 
 
-    const editNodeDreagEnd = async (info, id) => {
+    const editNodeDreagEnd = (info, id) => {
 
-        await editNodeDragF(id)
-        await store.editGraph(obj);
-        await store.set_Rotation(copy);
-
-        // return
-
+        editNodeDragF(id)
     }
 
-    const lineActive = (rotation)=>{
-        for(let i =0; i<store.mass_putei_exit[activeId]?.interval_node.length; i++){
-            if(((rotation.idA === store.mass_putei_exit[activeId]?.interval_node[i]) && (rotation.idB === store.mass_putei_exit[activeId]?.interval_node[i+1])) || ((rotation.idB === store.mass_putei_exit[activeId]?.interval_node[i]) && (rotation.idA === store.mass_putei_exit[activeId]?.interval_node[i+1]))){
-                return {backgroundColor: 'green'}
-            }
-        }
-    }
+
 
 
 
@@ -162,14 +93,10 @@ const AreaNodeAndZone = ({obj, objCache, myModalZone, setMyModalZone, edit, acti
                     active={active}
                 />
 
-                <RotationJoin line={line} active={active} lineActive={lineActive} ves={ves}/>
+                <RotationJoin line={line} active={active} ves={ves}/>
 
                 <Zone
-                    myModalZone={myModalZone}
-                    parentRef={parentRef}
-                    setMyModalZone={setMyModalZone}
                     draggableEl={draggableEl}
-                    setDraggableEl={setDraggableEl}
                     visibleZon={visibleZon}
                     zon={zone}
                 />

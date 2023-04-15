@@ -1,8 +1,7 @@
 export class Route{
     id: number;
     name: string;
-    A: string;
-    B: string;
     interval_node: Array<string> = [];
+    date: Date;
     long: number;
 }

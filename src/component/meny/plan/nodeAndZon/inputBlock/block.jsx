@@ -12,13 +12,7 @@ const Block = ({setVisibleDell, setMyModalZone}) => {
     const [G1, setG1] = useState('')
     const [G2, setG2] = useState('')
     const [ves, setVes] = useState('')
-    const [nameS, setNameS] = useState('')
     const [active, setActive] = useState(0)
-    const valid = () => {
-        if (nameS == '') {
-            alert("Имя не может быть пустым")
-        }
-    }
 
     return (
         <div className={styles.main}>
@@ -53,7 +47,6 @@ const Block = ({setVisibleDell, setMyModalZone}) => {
                 </div>
                 <br/>
                 <button onClick={async () => {
-                    await valid();
                     await store.matrixSmejUsel(G1, G2, ves);
                     await store.matrixAndZone();
                     await store.setEdgePush({

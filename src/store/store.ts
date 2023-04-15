@@ -14,6 +14,7 @@ import {API_URL} from "../http";
 import StockService from '../services/StockService'
 import NodeZoneEdgeService from '../services/NodeZoneEdgeService'
 import {Edge} from "../models/Edge";
+import RouteService from "../services/RouteService";
 export default class Store {
 
 
@@ -325,9 +326,6 @@ export default class Store {
         this.b = b;
     }
 
-    // setIGraph(arr: Graph[]) {
-    //     this.arr.push(arr);
-    // }
 
     setMass_putei(mass_putei: (boolean | number)[][]) {
         this.mass_putei = mass_putei;
@@ -341,9 +339,6 @@ export default class Store {
         this.messages = message;
     }
 
-    setIsLoading(bool: boolean) {
-        this.isLoading = bool;
-    }
 
 
      update() {
@@ -570,7 +565,7 @@ export default class Store {
     }
 
 
-    search(A1, A2, name_route) {
+     search(A1, A2, name_route, date) {
         let mass: (boolean | number) [][] = []
         let a, b;
         let PutNaiden = false;
@@ -587,7 +582,6 @@ export default class Store {
         }
 
         let search_flag = a;
-        let mass_arr = []
 
         //Заполнение массива для расчетов
         for (let i = 0; i < this.idGraph.length; i++) {
@@ -646,15 +640,21 @@ export default class Store {
                                     id = this.mass_putei_exit[this.mass_putei_exit.length - 1].id + 1;
                                 }
 
+                                const arrNodeRoute = []
+                                arr_mass_exit = arr_mass_exit.reverse();
+                                for(let i = 0; i < arr_mass_exit.length; i++){
+                                    arrNodeRoute.push(this.idGraph[arr_mass_exit[i]].num)
+                                }
+
                                 const route = {
-                                    id: id,
+                                    id: null,
                                     name: name_route,
-                                    A: a,
-                                    B: b,
-                                    interval_node: arr_mass_exit.reverse(),
+                                    interval_node: arrNodeRoute,
+                                    date: new Date(date),
                                     long: this.mass_putei[b][0]
                                 }
-                                this.setMass_putei_exit(route)
+
+                                this.postRoute(route);
 
                                 // this.setMass_putei_exit(arr_mass_exit.reverse())
 
@@ -692,6 +692,10 @@ export default class Store {
         return X
     }
 
+    postRoute(route){
+        RouteService.fetchRoutePost(route, this.stock_active);
+        // this.setMass_putei_exit(route)
+    }
 
     solutions(G1, G2) {
 
@@ -725,6 +729,14 @@ export default class Store {
         }
         console.log(this.Rotation)
         this.upgradeStoreRotation();
+    }
+
+    dragGraph(id){
+        for (let i = 0; i < this.matrixsmesh.length; i++) {
+            if (this.matrixsmesh[i][id] < 9999 && i != id) {
+                this.solutions(id, i)
+            }
+        }
     }
 
     dellGraph(G) {
