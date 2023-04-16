@@ -15,6 +15,7 @@ import StockService from '../services/StockService'
 import NodeZoneEdgeService from '../services/NodeZoneEdgeService'
 import {Edge} from "../models/Edge";
 import RouteService from "../services/RouteService";
+import solution from "../component/hooks/hooks-route";
 export default class Store {
 
 
@@ -639,22 +640,21 @@ export default class Store {
                                 else {
                                     id = this.mass_putei_exit[this.mass_putei_exit.length - 1].id + 1;
                                 }
-
-                                const arrNodeRoute = []
-                                arr_mass_exit = arr_mass_exit.reverse();
-                                for(let i = 0; i < arr_mass_exit.length; i++){
-                                    arrNodeRoute.push(this.idGraph[arr_mass_exit[i]].num)
-                                }
-
+                                //
+                                // const arrNodeRoute = []
+                                // // arr_mass_exit = arr_mass_exit.reverse();
+                                // // for(let i = 0; i < arr_mass_exit.length; i++){
+                                // //     arrNodeRoute.push(this.idGraph[arr_mass_exit[i]].num)
+                                // // }
+                                const routeVariant = solution(this.idGraph, this.matrixsmesh, this.edge, a, b)
                                 const route = {
                                     id: null,
                                     name: name_route,
-                                    interval_node: arrNodeRoute,
+                                    interval_node: arr_mass_exit.reverse(),
                                     date: new Date(date),
                                     long: this.mass_putei[b][0]
                                 }
-
-                                this.postRoute(route);
+                                this.postRoute(route, routeVariant);
 
                                 // this.setMass_putei_exit(arr_mass_exit.reverse())
 
@@ -692,8 +692,8 @@ export default class Store {
         return X
     }
 
-    postRoute(route){
-        RouteService.fetchRoutePost(route, this.stock_active);
+    postRoute(route, routeVariants){
+        RouteService.fetchRoutePost(route, routeVariants, this.idGraph, this.stock_active);
         // this.setMass_putei_exit(route)
     }
 

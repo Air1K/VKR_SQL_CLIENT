@@ -70,6 +70,7 @@
         }
         console.log("Конец всех ввычислений")
         console.log(mass_rout)
+       return mass_rout
     }
 
 

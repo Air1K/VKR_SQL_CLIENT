@@ -86,11 +86,11 @@ const Search = observer(() => {
                 <input type="datetime-local" value={date} onChange={event => setDate(event.target.value)}/>
                 <button onClick={async () => {
 
-                        // await store.search(G1, G2, name_route, date);
+                        await store.search(G1, G2, name_route, date);
                         // setActiveID(store.mass_putei_exit[store.mass_putei_exit.length - 1].id)
                         // setActive(true)
 
-                        solution(store.idGraph, store.matrixsmesh, store.edge, 12, 8)
+
 
 
                 }}>Найти
