@@ -647,6 +647,7 @@ export default class Store {
                                 // //     arrNodeRoute.push(this.idGraph[arr_mass_exit[i]].num)
                                 // // }
                                 const routeVariant = solution(this.idGraph, this.matrixsmesh, this.edge, a, b)
+                                console.log(routeVariant)
                                 const route = {
                                     id: null,
                                     name: name_route,
@@ -693,7 +694,7 @@ export default class Store {
     }
 
     postRoute(route, routeVariants){
-        RouteService.fetchRoutePost(route, routeVariants, this.idGraph, this.stock_active);
+        RouteService.fetchRoutePost(route, routeVariants, this.idGraph, this.matrixsmesh, this.stock_active);
         // this.setMass_putei_exit(route)
     }
 
