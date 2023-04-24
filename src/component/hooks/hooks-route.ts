@@ -1,5 +1,5 @@
 
-   const solution = (graph, matrix: [][], edge, a, b)=> {
+   const solution = (graph, matrix: [][], edge, a, b, optimalRoute)=> {
         const stack = [];
         const mass_rout = [];
         const graphFlag = [];
@@ -55,7 +55,8 @@
                     stack.push(i)
                     graphFlag[stack[stack.length - 2]].push(i)
                     if (stack[stack.length - 1] === b) {
-                        mass_rout.push(stack.slice());
+
+                        if(JSON.stringify(stack) !== JSON.stringify(optimalRoute)) mass_rout.push(stack.slice());
                         graphFlag[stack[stack.length - 1]] = []
                         stack.pop();
                     }

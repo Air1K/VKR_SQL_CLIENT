@@ -47,23 +47,23 @@ const Search = observer(() => {
         setMyModalZone(true)
     })
 
-    const Strelka = (props) => {
-        const index_ = props.ellement;
-        console.log(index_, store.mass_putei_exit.length - 1)
-        if (index_ < store.mass_putei_exit[activeId]?.interval_node?.length - 1) {
-            return (<span>➜</span>)
-        }
-        return null;
-    }
-
-    const Otvet = () => {
-
-        if (store.b != null) {
-            console.log(store.mass_putei_exit)
-            return (<span> &nbsp; {store.mass_putei_exit[activeId]?.long}</span>)
-        }
-        return null;
-    }
+    // const Strelka = (props) => {
+    //     const index_ = props.ellement;
+    //     console.log(index_, store.mass_putei_exit.length - 1)
+    //     if (index_ < store.mass_putei_exit[activeId]?.interval_node?.length - 1) {
+    //         return (<span>➜</span>)
+    //     }
+    //     return null;
+    // }
+    //
+    // const Otvet = () => {
+    //
+    //     if (store.b != null) {
+    //         console.log(store.mass_putei_exit)
+    //         return (<span> &nbsp; {store.mass_putei_exit[activeId]?.long}</span>)
+    //     }
+    //     return null;
+    // }
 
     useEffect(() => {
         console.log(active)
@@ -96,36 +96,36 @@ const Search = observer(() => {
                 }}>Найти
                 </button>
             </div>
-            <div className={styles.main}>
-                <h5>Сводка о маршруте {active ? ('"' + store.mass_putei_exit[activeId]?.name + '"') : (null)}</h5>
-                <div className={styles.stringLable}>
-                    <div className={styles.search_div}>
-                        <div style={{marginTop: "16px"}}>Выберите кротчайший маршрут: &nbsp; &nbsp;</div>
-                        <div className={styles.select}><Selected setActive={setActiveID}
-                                        nameLabel={"Кротчайший маршрут"}
-                                        objMap={store.mass_putei_exit}
-                                        ID={"id"}/>
-                        </div>
+            {/*<div className={styles.main}>*/}
+            {/*    <h5>Сводка о маршруте {active ? ('"' + store.mass_putei_exit[activeId]?.name + '"') : (null)}</h5>*/}
+            {/*    <div className={styles.stringLable}>*/}
+            {/*        <div className={styles.search_div}>*/}
+            {/*            <div style={{marginTop: "16px"}}>Выберите кротчайший маршрут: &nbsp; &nbsp;</div>*/}
+            {/*            <div className={styles.select}><Selected setActive={setActiveID}*/}
+            {/*                            nameLabel={"Кротчайший маршрут"}*/}
+            {/*                            objMap={store.mass_putei_exit}*/}
+            {/*                            ID={"id"}/>*/}
+            {/*            </div>*/}
 
-                    </div>
-                    {active ? (
-                        <div style={{display: "block"}}>
-                            <div>
-                                <span>Длина найденого маршрута: </span>
-                                <Otvet/>
-                                <br/>
-                            </div>
-                            <div>
-                                <span>Маршрут: </span> &nbsp;
-                                {(store.mass_putei_exit[activeId]?.interval_node?.map((node_, indexe) => <span
-                                    className={styles.puti} key={indexe}> {store.idGraph[node_]?.num}&nbsp; <Strelka
-                                    ellement={indexe}/> &nbsp;</span>))}
-                            </div>
+            {/*        </div>*/}
+            {/*        {active ? (*/}
+            {/*            <div style={{display: "block"}}>*/}
+            {/*                <div>*/}
+            {/*                    <span>Длина найденого маршрута: </span>*/}
+            {/*                    <Otvet/>*/}
+            {/*                    <br/>*/}
+            {/*                </div>*/}
+            {/*                <div>*/}
+            {/*                    <span>Маршрут: </span> &nbsp;*/}
+            {/*                    {(store.mass_putei_exit[activeId]?.interval_node?.map((node_, indexe) => <span*/}
+            {/*                        className={styles.puti} key={indexe}> {store.idGraph[node_]?.num}&nbsp; <Strelka*/}
+            {/*                        ellement={indexe}/> &nbsp;</span>))}*/}
+            {/*                </div>*/}
 
-                        </div>
-                    ) : (<div/>)}
-                </div>
-            </div>
+            {/*            </div>*/}
+            {/*        ) : (<div/>)}*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
             <AreaNodeAndZone
                 obj={obj}

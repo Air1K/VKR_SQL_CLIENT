@@ -38,7 +38,7 @@ export default class Store {
 
     matrixsmesh = [];
     mass_putei = [];
-    mass_putei_exit: Route[] = [];
+    Routes: Route[] = [];
     stock_active: number = null
 
     constructor() {
@@ -319,22 +319,10 @@ export default class Store {
         this.user = user;
     }
 
-    setA(a: number) {
-        this.a = a;
-    }
-
-    setB(b: number) {
-        this.b = b;
-    }
-
-
     setMass_putei(mass_putei: (boolean | number)[][]) {
         this.mass_putei = mass_putei;
     }
 
-    setMass_putei_exit(setMass_putei_exit) {
-        this.mass_putei_exit.push(setMass_putei_exit);
-    }
 
     setMessages(message: string) {
         this.messages = message;
@@ -633,21 +621,13 @@ export default class Store {
                                     console.log(ass)
                                     search = Number(mass[ass][1]);
                                 }
-                                let id
-                                if(this.mass_putei_exit.length===0){
-                                    id = 0;
-                                }
-                                else {
-                                    id = this.mass_putei_exit[this.mass_putei_exit.length - 1].id + 1;
-                                }
                                 //
                                 // const arrNodeRoute = []
                                 // // arr_mass_exit = arr_mass_exit.reverse();
                                 // // for(let i = 0; i < arr_mass_exit.length; i++){
                                 // //     arrNodeRoute.push(this.idGraph[arr_mass_exit[i]].num)
                                 // // }
-                                const routeVariant = solution(this.idGraph, this.matrixsmesh, this.edge, a, b)
-                                console.log(routeVariant)
+
                                 const route = {
                                     id: null,
                                     name: name_route,
@@ -655,14 +635,11 @@ export default class Store {
                                     date: new Date(date),
                                     long: this.mass_putei[b][0]
                                 }
+                                const routeVariant = solution(this.idGraph, this.matrixsmesh, this.edge, a, b, arr_mass_exit)
+                                console.log(routeVariant)
+
                                 this.postRoute(route, routeVariant);
 
-                                // this.setMass_putei_exit(arr_mass_exit.reverse())
-
-                                this.setA(a);
-                                this.setB(b);
-                                console.log(arr_mass_exit)
-                                console.log(this.mass_putei_exit)
                             }
                         }
                     }
@@ -693,9 +670,14 @@ export default class Store {
         return X
     }
 
-    postRoute(route, routeVariants){
-        RouteService.fetchRoutePost(route, routeVariants, this.idGraph, this.matrixsmesh, this.stock_active);
-        // this.setMass_putei_exit(route)
+    async postRoute(route, routeVariants){
+        try {
+            const response = await RouteService.fetchRoutePost(route, routeVariants, this.idGraph, this.matrixsmesh, this.stock_active);
+            console.log(response)
+        }
+        catch (e) {
+            console.log(e)
+        }
     }
 
     solutions(G1, G2) {
