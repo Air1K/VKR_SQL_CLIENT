@@ -5,7 +5,9 @@ import AreaNodeAndZone from "../plan/nodeAndZon/areaNodeAndZon/areaNodeAndZone";
 import Selected from "../../tag/select/select";
 import {observer} from "mobx-react-lite";
 import DateTime from "../../hooks/hooks-time"
-import solution from '../../hooks/hooks-route'
+import searchRouteDb from '../../hooks/hooks-search-route-db'
+import RouteMap from "./RouteMap";
+
 const Search = observer(() => {
     console.log("Рендер Search ____________________________________")
     const [date, setDate] = useState(`${DateTime}`)
@@ -18,10 +20,10 @@ const Search = observer(() => {
     const [editNodeS, setEditNodeS] = useState(false);
     const [myModalZone, setMyModalZone] = useState(false)
     const [name_route, setNameRoute] = useState('')
-    const [activeId, setActiveID] = useState(0);
+    const [activeId, setActiveID] = useState(null);
     const [active, setActive] = useState(false);
+    const [activeVariants, setActiveVariants] = useState(null);
     let obj = []
-    // const [active_route, setActive_route] = useState()
     let objCache = []
 
     useEffect(() => {
@@ -47,6 +49,11 @@ const Search = observer(() => {
         setMyModalZone(true)
     })
 
+    useEffect(() => {
+        store.getRoutes()
+    }, [])
+
+
     // const Strelka = (props) => {
     //     const index_ = props.ellement;
     //     console.log(index_, store.mass_putei_exit.length - 1)
@@ -65,9 +72,20 @@ const Search = observer(() => {
     //     return null;
     // }
 
-    useEffect(() => {
-        console.log(active)
-    }, [active])
+    useEffect(()=>{
+        if(activeId !== null){
+            console.log("setActive(true) ++++------++++-----------++++--------------- ++++")
+            setActive(true)
+        }else{
+            console.log("setActive(false) ++++------++++-----------++++--------------- ++++")
+            setActive(false)
+        }
+    }, [activeId])
+
+    useEffect(()=>{
+        searchRouteDb(store.idGraph, store.matrixsmesh, 8, 18, store?.Routes[activeId]?.variants_route[activeVariants].interval_node)
+        console.log(activeVariants)
+    }, [activeVariants])
 
     return (
         <div className={styles.block}>
@@ -86,46 +104,44 @@ const Search = observer(() => {
                 <input type="datetime-local" value={date} onChange={event => setDate(event.target.value)}/>
                 <button onClick={async () => {
 
-                        await store.search(G1, G2, name_route, date);
-                        // setActiveID(store.mass_putei_exit[store.mass_putei_exit.length - 1].id)
-                        // setActive(true)
-
-
-
-
+                    await store.search(G1, G2, name_route, date);
+                    console.log(" ++++------++++-----------++++--------------- ++++")
+                    setActive(true)
                 }}>Найти
                 </button>
             </div>
-            {/*<div className={styles.main}>*/}
-            {/*    <h5>Сводка о маршруте {active ? ('"' + store.mass_putei_exit[activeId]?.name + '"') : (null)}</h5>*/}
-            {/*    <div className={styles.stringLable}>*/}
-            {/*        <div className={styles.search_div}>*/}
-            {/*            <div style={{marginTop: "16px"}}>Выберите кротчайший маршрут: &nbsp; &nbsp;</div>*/}
-            {/*            <div className={styles.select}><Selected setActive={setActiveID}*/}
-            {/*                            nameLabel={"Кротчайший маршрут"}*/}
-            {/*                            objMap={store.mass_putei_exit}*/}
-            {/*                            ID={"id"}/>*/}
-            {/*            </div>*/}
+            <div className={styles.main}>
+                <div className={styles.search_div}>
+                    <div style={{marginTop: "16px"}}>Выберите кротчайший маршрут: &nbsp; &nbsp;</div>
+                    <div className={styles.select}>
+                        <Selected setActive={setActiveID}
+                                  nameLabel={"Кротчайший маршрут"}
+                                  objMap={store.Routes}
+                                  ID={"id"}/>
+                    </div>
 
-            {/*        </div>*/}
-            {/*        {active ? (*/}
-            {/*            <div style={{display: "block"}}>*/}
-            {/*                <div>*/}
-            {/*                    <span>Длина найденого маршрута: </span>*/}
-            {/*                    <Otvet/>*/}
-            {/*                    <br/>*/}
-            {/*                </div>*/}
-            {/*                <div>*/}
-            {/*                    <span>Маршрут: </span> &nbsp;*/}
-            {/*                    {(store.mass_putei_exit[activeId]?.interval_node?.map((node_, indexe) => <span*/}
-            {/*                        className={styles.puti} key={indexe}> {store.idGraph[node_]?.num}&nbsp; <Strelka*/}
-            {/*                        ellement={indexe}/> &nbsp;</span>))}*/}
-            {/*                </div>*/}
+                </div>
+                <h5>Сводка о маршруте {activeId !== null ? ('"' + store.Routes[activeId]?.name + '"') : (null)}</h5>
+                <div className={styles.stringLable}>
 
-            {/*            </div>*/}
-            {/*        ) : (<div/>)}*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+                    {activeId !== null ? (
+                        <div style={{display: "block"}}>
+                            <div>
+                                <span>Найденые маршруты: </span>
+                                <RouteMap active={activeId} activeVariants={activeVariants} setActiveVariants={setActiveVariants}/>
+                                <br/>
+                            </div>
+                            {/*<div>*/}
+                            {/*    <span>Маршрут: </span> &nbsp;*/}
+                            {/*    {(store.mass_putei_exit[activeId]?.interval_node?.map((node_, indexe) => <span*/}
+                            {/*        className={styles.puti} key={indexe}> {store.idGraph[node_]?.num}&nbsp; <Strelka*/}
+                            {/*        ellement={indexe}/> &nbsp;</span>))}*/}
+                            {/*</div>*/}
+
+                        </div>
+                    ) : (<div/>)}
+                </div>
+            </div>
 
             <AreaNodeAndZone
                 obj={obj}
@@ -133,8 +149,9 @@ const Search = observer(() => {
                 myModalZone={myModalZone}
                 setMyModalZone={setMyModalZone}
                 edit={edit}
-                activeId={activeId}
-                active={active}
+                activeRout={activeId}
+                activeId={activeVariants}
+                active={active} //active
             />
         </div>
     );

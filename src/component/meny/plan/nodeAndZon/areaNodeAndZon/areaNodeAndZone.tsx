@@ -8,7 +8,7 @@ import {observer} from "mobx-react-lite";
 import RotationJoin from "./RotationJoin";
 
 
-const AreaNodeAndZone = ({obj, objCache, myModalZone, setMyModalZone, edit, activeId, active}) => {
+const AreaNodeAndZone = ({obj, objCache, myModalZone, setMyModalZone, edit, activeRout, activeId, active}) => {
     console.log("Рендер AreaNodeAndZone ____________________________________")
 
 
@@ -89,11 +89,12 @@ const AreaNodeAndZone = ({obj, objCache, myModalZone, setMyModalZone, edit, acti
                     checkDrag={checkDrag}
                     nameVisible={nameVisible}
                     idVisible={idVisible}
+                    activeRout={activeRout}
                     activeId={activeId}
                     active={active}
                 />
 
-                <RotationJoin line={line} active={active} ves={ves}/>
+                <RotationJoin line={line} active={active} ves={ves} activeRout={activeRout} activeId={activeId}/>
 
                 <Zone
                     draggableEl={draggableEl}

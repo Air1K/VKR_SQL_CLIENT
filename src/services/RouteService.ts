@@ -12,4 +12,8 @@ export  default class RouteService {
         return $api.post<AuthResponse>('/stock/add/route', {route, routeVariants,graph,matrix, id_stock})
     }
 
+    static async fetchRouteGet(id_stock: number): Promise<AxiosResponse> {
+        return $api.post<AuthResponse>('/stock/get/route', {id_stock})
+    }
+
 }

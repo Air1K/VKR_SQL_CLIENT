@@ -15,18 +15,15 @@ const Selected = ({setActive, nameLabel, objMap, ID}) => {
             <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                onChange={(e)=>{if(e.target.value !== 0){setActive(e.target.value)} else {setActive(0)}}}
+                onChange={(e)=>{console.log(e.target.value, "((((("); setActive(e.target.value)}}
                 label="111"
             >
-                <MenuItem value={0}>
+                <MenuItem value={null}>
                     <em>None</em>
                 </MenuItem>
                 {objMap.map((el, index)=>
-                    <MenuItem key={index} value={el[ID]}>{el[ID]}.&nbsp;{el.name}</MenuItem>
+                    <MenuItem key={index} value={index}>{el[ID]}.&nbsp;{el.name}</MenuItem>
                 )}
-                {/*<MenuItem value={10}>Ten</MenuItem>*/}
-                {/*<MenuItem value={20}>Twenty</MenuItem>*/}
-                {/*<MenuItem value={30}>Thirty</MenuItem>*/}
             </Select>
         </FormControl>
     );

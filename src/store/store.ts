@@ -60,6 +60,10 @@ export default class Store {
         this.img = img
     }
 
+    setRoutes(route: Route[]){
+        this.Routes = route
+    }
+
     async setPlanAdd(name){
         try {
             const stock = await StockService.fetchStockPost(name);
@@ -370,6 +374,16 @@ export default class Store {
         }
     }
 
+    async getRoutes(){
+        try {
+            const response = await RouteService.fetchRouteGet(this.stock_active)
+            this.setRoutes(response.data)
+        }catch (e) {
+            console.log(e)
+        }
+
+        // this.setRoutes()
+    }
 
     async login(email: string, password: string) {
         try {
@@ -484,43 +498,6 @@ export default class Store {
 
     async matrixSmejUsel(G1, G2, ves) {
         let a, b;
-        let ass = true;
-        let ass2 = true;
-        if (!this.idGraph[0]?.num) {
-            alert("Массив точек пуст");
-            return
-        }
-
-        for (let i = 0; i < this.idGraph?.length; i++) {
-
-            console.log(this.idGraph[i]?.num, "--", G1, "--", G2)
-            if (this.idGraph[i]?.num === (G1)) {
-                ass = false
-            }
-            if (this.idGraph[i]?.num === (G2)) {
-                ass2 = false
-            }
-        }
-
-        if (ass) {
-            alert("Введено имя не существующего узла 1");
-            return
-        }
-        if (ass2) {
-            alert("Введено имя не существующего узла 2");
-            return
-        }
-
-        console.log(ves)
-        if (!ves) {
-            alert("Введено некорректное значение");
-            return
-        }
-
-        if (ves < 0) {
-            alert("Введено некорректное значение");
-            return
-        }
 
         if (this.idGraph.length !== this.matrixsmesh.length) {
             await this.matrixSme();
