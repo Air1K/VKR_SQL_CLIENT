@@ -1,94 +1,61 @@
+import solution from "./hooks-route";
+import {Route} from "../../models/Route";
 
-const searchRouteDb = (graph, matrix: [][], a, b, rout)=> {
+const searchRouteDb = (value, graph, matrix, route: Route[])=> {
 
-    // console.log(rout, graph, matrix)
-    const stack = [];
-    const mass_rout = [];
-    const graphFlag = [];
-    for (let i = 0; i < graph.length; i++) {
-        graphFlag[i] = []
-    }
-
-    stack.push(a)
-    while (stack[0]) {
-        for (let i = 0; i < matrix.length; i++) {
-
-            if ((matrix[stack[stack.length - 1]][i] < 999) && ((stack[stack.length - 1] !== i))) {
-
-                let bool = true
-                for (let j = 0; j < stack.length; j++) {
-                    if (stack[j] === i) {
-                        bool = false
-                    }
-                }
-                if (!bool) {
-                    if (i < matrix.length) {
-                        continue;
-                    } else {
-                        graphFlag[stack[stack.length - 1]] = []
-                        // console.log("delete - ", this.stack[this.stack.length - 1]);
-                        stack.pop();
-                        i = -1
-                        continue;
-                    }
-                }
-
-
-                // if( bool){
-                let bool1 = true
-                for (let j = 0; j < graphFlag[stack[stack.length - 1]].length; j++) {
-
-                    if (graphFlag[stack[stack.length - 1]][j] === i) {
-                        bool1 = false
-                    }
-                }
-                if (!bool1) {
-                    if (i < matrix.length) {
-                        continue;
-                    } else {
-                        graphFlag[stack[stack.length - 1]] = []
-                        stack.pop();
-                        i = -1
-                        continue;
-                    }
-                }
-
-                stack.push(i)
-                graphFlag[stack[stack.length - 2]].push(i)
-                if (stack[stack.length - 1] === b) {
-                    mass_rout.push(stack.slice());
-                    graphFlag[stack[stack.length - 1]] = []
-                    stack.pop();
-                }
-                i = -1
-                // }
-
-            }
+    const massBoundary = []
+    for(let i = 0; i < graph.length; i++){
+        if(graph[i].num === route[value].A || graph[i].num === route[value].B){
+            massBoundary.push(i)
         }
-        graphFlag[stack[stack.length - 1]] = []
-        // console.log("delete - ", this.stack[this.stack.length - 1]);
-        stack.pop();
+        if(massBoundary.length ===2) break
     }
-    for(let i =0; i < mass_rout.length; i++){
-        if(mass_rout[i].length !== rout.length) continue
-        let search_ = 0
-        for(let j =0; j < mass_rout[i].length; j++){
+    if(massBoundary.length<2) return;
 
-            for(let a =0; a < rout.length; a++){
-                if(graph[mass_rout[i][j]].num === rout[a]){
-                    search_++;
+
+    let massNodesRouteIndex = []
+    for(let i = 0; i < route[value].variants_route.length; i++){
+        massNodesRouteIndex[i] = [];
+        for(let j = 0; j < route[value].variants_route[i].interval_node.length; j++){
+            for(let o = 0; o < graph.length; o++){
+                console.log(graph[o].num, "----", route[value].variants_route[i].interval_node[j])
+                if(graph[o].num === route[value].variants_route[i].interval_node[j]){
+                    console.log(i, j, o)
+                    massNodesRouteIndex[i].push(o)
+                    break;
                 }
             }
         }
-        if(search_ === rout.length){
-            console.log(mass_rout[i])
-            return mass_rout[i]
-        }
     }
 
 
+    const routeVariants = solution(graph, matrix, massBoundary[0], massBoundary[1], null);
+
+    for(let i = 0; i < massNodesRouteIndex.length; i++){
+
+        for(let j = 0; j < routeVariants.length; j++){
+            if(massNodesRouteIndex[i].length !==routeVariants[j].length) continue;
+
+            let kit = 0;
+            for(let o = 0; o < massNodesRouteIndex[i].length; o++){
+                for(let l = 0; l < routeVariants[j].length; l++){
+                    if(massNodesRouteIndex[i][o] === routeVariants[j][l]){
+                        kit++;
+                        break;
+                    }
+                }
+            }
+            if(kit === routeVariants[j].length){
+                massNodesRouteIndex[i] = routeVariants[j];
+                break;
+            }
+        }
+    }
+
+    return massNodesRouteIndex;
 
 }
+
 
 
 export default searchRouteDb

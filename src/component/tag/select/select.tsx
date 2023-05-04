@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select  from '@mui/material/Select';
-
+import searchRouteDb from '../../hooks/hooks-search-route-db'
+import {Context} from "../../../index";
 const Selected = ({setActive, nameLabel, objMap, ID}) => {
-
+    const {store} = useContext(Context);
 
     console.log("Рендер Select ____________________________________")
     return (
@@ -15,7 +16,10 @@ const Selected = ({setActive, nameLabel, objMap, ID}) => {
             <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                onChange={(e)=>{console.log(e.target.value, "((((("); setActive(e.target.value)}}
+                onChange={(e)=>{console.log(e.target.value, "((((("); setActive(e.target.value)
+                    store.setRouteActive(searchRouteDb(e.target.value, store.idGraph, store.matrixsmesh, store.Routes));
+
+                }}
                 label="111"
             >
                 <MenuItem value={null}>

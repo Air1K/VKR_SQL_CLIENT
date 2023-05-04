@@ -39,13 +39,16 @@ export default class Store {
     matrixsmesh = [];
     mass_putei = [];
     Routes: Route[] = [];
-    stock_active: number = null
+    stock_active: number = null;
+    route_active = []
 
     constructor() {
         makeAutoObservable(this);
     }
 
-
+    setRouteActive(route){
+        this.route_active = route
+    }
     setAuth(bool: boolean) {
         this.isAuth = bool;
     }
@@ -612,7 +615,7 @@ export default class Store {
                                     date: new Date(date),
                                     long: this.mass_putei[b][0]
                                 }
-                                const routeVariant = solution(this.idGraph, this.matrixsmesh, this.edge, a, b, arr_mass_exit)
+                                const routeVariant = solution(this.idGraph, this.matrixsmesh, a, b, arr_mass_exit)
                                 console.log(routeVariant)
 
                                 this.postRoute(route, routeVariant);

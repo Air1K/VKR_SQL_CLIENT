@@ -33,6 +33,9 @@ const AreaMotion = ({
         console.log(active, "================")
 
         if ((store.idGraph[ids].num === store.Routes[activeRout]?.A) || (store.idGraph[ids].num === store.Routes[activeRout]?.B)) {
+            return {backgroundColor: "#27d527"}
+        }
+        if (store.route_active[activeId]?.includes(ids)){
             return {backgroundColor: "green"}
         }
 

@@ -1,5 +1,5 @@
 
-   const solution = (graph, matrix: [][], edge, a, b, optimalRoute)=> {
+   const solution = (graph, matrix: [][], a, b, optimalRoute)=> {
         const stack = [];
         const mass_rout = [];
         const graphFlag = [];

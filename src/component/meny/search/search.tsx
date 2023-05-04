@@ -83,7 +83,7 @@ const Search = observer(() => {
     }, [activeId])
 
     useEffect(()=>{
-        searchRouteDb(store.idGraph, store.matrixsmesh, 8, 18, store?.Routes[activeId]?.variants_route[activeVariants].interval_node)
+        // searchRouteDb(store.idGraph, store.matrixsmesh, 8, 18, store?.Routes[activeId]?.variants_route[activeVariants].interval_node)
         console.log(activeVariants)
     }, [activeVariants])
 
