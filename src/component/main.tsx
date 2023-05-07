@@ -49,13 +49,12 @@ const Main = observer(() => {
                                     <li><a href="#" onClick={() => {
                                         setVisibleUnits(true)
                                     }}>Единицы измерения</a></li>
-                                    <li><a href="#">Отобразить план</a></li>
                                 </ul>
                             </li>
                             <li><Link to={`plan/${store.plan[store.stock_active - 1]?.name}/search`}
                                       data-hover="Найти оптимальный маршрут">Оптимальный маршрут</Link></li>
                             <li><Link to={`plan/${store.plan[store.stock_active - 1]?.name}/otchet`}
-                                      data-hover="Сформировать отчет">Отчеты о маршрутах</Link></li>
+                                      data-hover="Сформировать отчет">Визуализация маршрута</Link></li>
                             <li><Link to="/authorization" data-hover="Exit" onClick={async () => {
                                 await store.logoutE()
                             }}>Выйти из системы</Link></li>
