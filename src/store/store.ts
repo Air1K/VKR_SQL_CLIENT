@@ -250,7 +250,7 @@ export default class Store {
         if (this.Rotation.length !== 0) {
             console.log("Объекты есть в сторе, поиск объекта")
             for (let i = 0; i < this.Rotation.length; i++) {
-                if (this.Rotation[i].idA === idA && this.Rotation[i].idB === idB) {
+                if ((this.Rotation[i].idA === idA && this.Rotation[i].idB === idB) || (this.Rotation[i].idB === idA && this.Rotation[i].idA  ===  idB)) {
                     this.Rotation[i].long = long;
                     this.Rotation[i].rotations = rotade;
                     this.Rotation[i].centerX = centerX;
@@ -474,7 +474,6 @@ export default class Store {
             sessionStorage.setItem("graph", json);
         } catch (e) {
             console.log("!!!!!!!!!!!");
-
         }
         console.log(this.matrixsmesh.length)
     }
@@ -677,7 +676,7 @@ export default class Store {
         const centerX = ((x1 + x2) / 2) - (long / 2) + (25 / 2)
         const centerY = ((y1 + y2) / 2)
         this.setRotation(aSearc, bSearc, long, deg, centerX, centerY)
-        console.log(this.Rotation)
+
     }
 
     matrixAndZone() {
@@ -696,8 +695,16 @@ export default class Store {
     }
 
     dragGraph(id){
+        // for (let i = 0; i < this.matrixsmesh.length; i++) {
+        //     for (let j = 0; j < this.matrixsmesh.length; j++) {
+        //         if (this.matrixsmesh[i][j] < 9999 && i !== j) {
+        //             this.solutions(i, j)
+        //         }
+        //     }
+        // }
+
         for (let i = 0; i < this.matrixsmesh.length; i++) {
-            if (this.matrixsmesh[i][id] < 9999 && i != id) {
+            if (this.matrixsmesh[i][id] < 9999 && i !== id) {
                 this.solutions(id, i)
             }
         }

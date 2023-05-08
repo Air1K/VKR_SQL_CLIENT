@@ -5,9 +5,9 @@ import {observer} from "mobx-react-lite";
 
 const RotationJoin = ({line, active, ves, activeRout, activeId}) => {
     const {store} = useContext(Context);
-
+    console.log(store.Rotation, "-------------------")
     const lineActive = (rotation)=>{
-        console.log(store?.route_active[activeId])
+
         for(let i =0; i<store.route_active[activeId]?.length; i++){
             if(((rotation.idA === store.route_active[activeId]?.[i]) && (rotation.idB === store.route_active[activeId]?.[i+1])) || ((rotation.idB === store.route_active[activeId]?.[i]) && (rotation.idA === store.route_active[activeId]?.[i+1]))){
                 return {backgroundColor: 'green'}
@@ -17,7 +17,7 @@ const RotationJoin = ({line, active, ves, activeRout, activeId}) => {
     return (
         <div>
             {
-                line ? store.Rotation.map((rotation, id) =>
+                line ? (store.Rotation.map((rotation, id) =>
                      <div key={id} className={styles.line} style={{
                         width: rotation.long + "px",
                         transform: "translateX(" + rotation.centerX + "px) translateY(" + rotation.centerY + "px) rotate(" + rotation.rotations + "deg)"
@@ -31,7 +31,7 @@ const RotationJoin = ({line, active, ves, activeRout, activeId}) => {
                         }}>{store?.matrixsmesh[rotation?.idA][rotation?.idB]}</div> : null}
 
                     </div>
-                ): null
+                )): null
             }
         </div>
     );

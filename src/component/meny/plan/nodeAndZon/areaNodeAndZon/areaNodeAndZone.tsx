@@ -45,30 +45,19 @@ const AreaNodeAndZone = ({obj, objCache, myModalZone, setMyModalZone, edit, acti
         })
     }
 
-    console.log("Рендер areaNodeAndZone")
-
-
     const editNodeDreag = (info, id) => {
 
         offseteNode[id].Xoffs = info.offset.x;
         offseteNode[id].Yoffs = info.offset.y;
         objCache[id].X = obj[id].X + offseteNode[id].Xoffs;
         objCache[id].Y = obj[id].Y + offseteNode[id].Yoffs;
-        console.log(objCache[id].X, "info", objCache[id].Y);
-        console.log(obj)
         return;
     }
 
-    function editNodeDragF(id) {
+    const editNodeDreagEnd = (info, id) => {
         obj[id].X = offseteNode[id].Xoffs + obj[id].X;
         obj[id].Y = offseteNode[id].Yoffs + obj[id].Y;
         store.editGraph(obj);
-    }
-
-
-    const editNodeDreagEnd = (info, id) => {
-
-        editNodeDragF(id)
     }
 
 

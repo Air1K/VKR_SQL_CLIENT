@@ -67,9 +67,9 @@ const AreaMotion = ({
                             // }
                         }}
                         whileTap={{boxShadow: "0px 0px 15px rgba(0,0,0,0.2)", cursor: "grabbing"}}
-                        onDragEnd={(event, info) => {
-                            editNodeEnd(info, ids);
-                            store.dragGraph(ids);
+                        onDragEnd={async (event, info) => {
+                            await editNodeEnd(info, ids);
+                            await store.dragGraph(ids);
                         }}
                         dragControls={controls}
                         dragConstraints={parentRef}
