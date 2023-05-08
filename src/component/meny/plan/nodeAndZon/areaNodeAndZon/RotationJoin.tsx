@@ -7,6 +7,7 @@ const RotationJoin = ({line, active, ves, activeRout, activeId}) => {
     const {store} = useContext(Context);
 
     const lineActive = (rotation)=>{
+        console.log(store?.route_active[activeId])
         for(let i =0; i<store.route_active[activeId]?.length; i++){
             if(((rotation.idA === store.route_active[activeId]?.[i]) && (rotation.idB === store.route_active[activeId]?.[i+1])) || ((rotation.idB === store.route_active[activeId]?.[i]) && (rotation.idA === store.route_active[activeId]?.[i+1]))){
                 return {backgroundColor: 'green'}

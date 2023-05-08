@@ -8,7 +8,7 @@ const DellZone = ({setMyModalZone}) => {
     const {store} = useContext(Context);
     const [name, setName] = useState('')
     const [color, setColor] = useState('')
-    const [active, setActive] = useState(0)
+    const [active, setActive] = useState(null)
     return (
         <div>
             <div>
@@ -23,7 +23,7 @@ const DellZone = ({setMyModalZone}) => {
                     <br/><br/> Цвет зоны: <br/>
                     <input type="color" placeholder="Название зоны" value={color} onChange={event => setColor(event.target.value)}/><br/><br/>
                     <button onClick={async ()=>{
-                        await store.setSizeZon(name, color, active)
+                        await store.setSizeZon(name, color, store.type_zone[active].id_type_zone)
                         await setMyModalZone(false);
                         }}>Создать зону</button>
                     <button onClick={()=>{setMyModalZone(false);}}>Отменить создание</button>

@@ -34,7 +34,7 @@ const searchRouteDb = (value, graph, matrix, route: Route[])=> {
     for(let i = 0; i < massNodesRouteIndex.length; i++){
 
         for(let j = 0; j < routeVariants.length; j++){
-            if(massNodesRouteIndex[i].length !==routeVariants[j].length) continue;
+            if(massNodesRouteIndex[i].length !== routeVariants[j].length) continue;
 
             let kit = 0;
             for(let o = 0; o < massNodesRouteIndex[i].length; o++){
@@ -47,11 +47,12 @@ const searchRouteDb = (value, graph, matrix, route: Route[])=> {
             }
             if(kit === routeVariants[j].length){
                 massNodesRouteIndex[i] = routeVariants[j];
+                routeVariants[j] = [];
                 break;
             }
         }
     }
-
+    console.log(massNodesRouteIndex)
     return massNodesRouteIndex;
 
 }

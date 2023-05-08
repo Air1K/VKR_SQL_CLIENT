@@ -36,13 +36,6 @@ const Block = ({setVisibleDell, setMyModalZone}) => {
                                placeholder="Введите расстояние между узлами"/>
                         Укажите единицы измерения
                         <Selected active={active} setActive={setActive} nameLabel={"Ед. измерения"} objMap={store.units_type} ID={"id_units_type"}/>
-
-                        {/*Вид зоны*/}
-                        {/*<select style={{display: 'flex'}}>*/}
-                        {/*    <option>Зона перевозки</option>*/}
-                        {/*    <option>Зона погрузки</option>*/}
-                        {/*    <option>Зона хранения</option>*/}
-                        {/*</select>*/}
                     </div>
                 </div>
                 <br/>
@@ -53,7 +46,7 @@ const Block = ({setVisibleDell, setMyModalZone}) => {
                         A: G1,
                         B: G2,
                         long: Number(ves),
-                        id_units_type: active,
+                        id_units_type: store.units_type[active].id_units_type,
                         id_zone: null,
                     })
                 }}>Задать расстояние

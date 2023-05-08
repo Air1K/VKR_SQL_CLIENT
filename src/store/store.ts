@@ -156,6 +156,7 @@ export default class Store {
     }
 
     setSizeZon(name, color, active){
+        console.log(active)
             this.sizeZon.push({
                 id_zone: null,
                 name: name,

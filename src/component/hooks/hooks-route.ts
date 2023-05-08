@@ -8,7 +8,9 @@
         }
 
         stack.push(a)
-        while (stack[0]) {
+       console.log(stack)
+        while (stack.length) {
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaa")
             for (let i = 0; i < matrix.length; i++) {
 
                 if ((matrix[stack[stack.length - 1]][i] < 999) && ((stack[stack.length - 1] !== i))) {
@@ -24,7 +26,7 @@
                             continue;
                         } else {
                             graphFlag[stack[stack.length - 1]] = []
-                            // console.log("delete - ", this.stack[this.stack.length - 1]);
+                            console.log("delete - ", stack[stack.length - 1]);
                             stack.pop();
                             i = -1
                             continue;
@@ -45,7 +47,7 @@
                             continue;
                         } else {
                             graphFlag[stack[stack.length - 1]] = []
-                            // console.log("delete - ", this.stack[this.stack.length - 1]);
+                            console.log("delete - ", stack[stack.length - 1]);
                             stack.pop();
                             i = -1
                             continue;
@@ -66,7 +68,7 @@
                 }
             }
             graphFlag[stack[stack.length - 1]] = []
-            // console.log("delete - ", this.stack[this.stack.length - 1]);
+            console.log("delete - ", stack[stack.length - 1]);
             stack.pop();
         }
         console.log("Конец всех ввычислений")
