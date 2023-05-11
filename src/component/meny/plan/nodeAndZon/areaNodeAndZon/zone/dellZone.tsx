@@ -20,7 +20,7 @@ const DellZone = ({setActiveEditZone}) => {
                     <br/>
                     Название зоны:
                     <input type="text" placeholder="Название зоны" value={name} onChange={event => setName(event.target.value)}/>
-                    <Selected setActive={setActive} nameLabel={"Тип зоны"} objMap={store.type_zone} ID={"id_type_zone"}/>
+                    <Selected active={null} setActive={setActive} nameLabel={"Тип зоны"} objMap={store.type_zone} ID={"id_type_zone"}/>
                     <br/><br/> Цвет зоны: <br/>
                     <input type="color" placeholder="Название зоны" value={color} onChange={event => setColor(event.target.value)}/><br/><br/>
                     <button onClick={async ()=>{
@@ -29,10 +29,10 @@ const DellZone = ({setActiveEditZone}) => {
                         }}>Добавить зону</button>
                     <button onClick={ ()=>{
                         setActiveEditZone(true);
-                    }}>Изменить зону</button>
-                    <button onClick={async ()=>{
-                        await store.setSizeZon(name, color, store.type_zone[active].id_type_zone)
-                    }}>Удалить зону (не работает, если зона внесена в БД)</button>
+                    }}>Изменить / удалить зону (удаление не сработает, если зона внесена в БД)</button>
+                    {/*<button onClick={async ()=>{*/}
+                    {/*    await store.setSizeZon(name, color, store.type_zone[active].id_type_zone)*/}
+                    {/*}}>Удалить зону (не работает, если зона внесена в БД)</button>*/}
                 </div>
             </div>
         </div>

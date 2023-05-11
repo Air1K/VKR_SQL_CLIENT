@@ -120,6 +120,7 @@ const PanelLeft = ({
                 </p>
 
                 <p title="Прозрачность зон" className="range-field">
+                    Прозрачность зон
                     <input type="range"
                            id="test5"
                            min="0"

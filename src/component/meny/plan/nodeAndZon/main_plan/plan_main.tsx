@@ -81,9 +81,9 @@ const PlanMain = () => {
                 />
                 <div className={styles.checkboxAndButton}>
                     <p>
-                        <button onClick={async () => {
+                        <button style={{backgroundColor: "#f4ff00"}} onClick={async () => {
                             await store.saveBd()
-                        }}>Сохранить
+                        }}>Сохранить сформированные данные в БД
                         </button>
                     </p>
                 </div>
