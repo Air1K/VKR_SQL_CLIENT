@@ -72,17 +72,17 @@ const Search = observer(() => {
     //     return null;
     // }
 
-    useEffect(()=>{
-        if(activeId !== null){
+    useEffect(() => {
+        if (activeId !== null) {
             console.log("setActive(true) ++++------++++-----------++++--------------- ++++")
             setActive(true)
-        }else{
+        } else {
             console.log("setActive(false) ++++------++++-----------++++--------------- ++++")
             setActive(false)
         }
     }, [activeId])
 
-    useEffect(()=>{
+    useEffect(() => {
         // searchRouteDb(store.idGraph, store.matrixsmesh, 8, 18, store?.Routes[activeId]?.variants_route[activeVariants].interval_node)
         console.log(activeVariants)
     }, [activeVariants])
@@ -114,7 +114,8 @@ const Search = observer(() => {
                 <div className={styles.search_div}>
                     <div style={{marginTop: "16px"}}>Выберите кротчайший маршрут: &nbsp; &nbsp;</div>
                     <div className={styles.select}>
-                        <Selected setActive={setActiveID}
+                        <Selected active={null}
+                                  setActive={setActiveID}
                                   nameLabel={"Кротчайший маршрут"}
                                   objMap={store.Routes}
                                   ID={"id"}/>
@@ -128,7 +129,8 @@ const Search = observer(() => {
                         <div style={{display: "block"}}>
                             <div>
                                 <span>Найденые маршруты: </span>
-                                <RouteMap active={activeId} activeVariants={activeVariants} setActiveVariants={setActiveVariants}/>
+                                <RouteMap active={activeId} activeVariants={activeVariants}
+                                          setActiveVariants={setActiveVariants}/>
                                 <br/>
                             </div>
                             {/*<div>*/}

@@ -19,6 +19,21 @@ const NewZone = ({setVisible}) => {
                     <button onClick={()=>{store.addZone(name); setName(''); setVisible(false) }}>Создать новый тип</button>
                 </div>
             </div>
+            <div>
+                <br/>
+                <h6>
+                    Изменение типа зоны
+                </h6>
+                <div>
+                    <br/>
+                    Старое название типа зоны:
+                    <input type="text" placeholder="Старое название типа зоны" value={name} onChange={event => setName(event.target.value)} />
+                    Новое название типа зоны:
+                    <input type="text" placeholder="Новое название типа зоны" value={name} onChange={event => setName(event.target.value)} />
+                    <br/>
+                    <button onClick={()=>{store.addZone(name); setName(''); setVisible(false) }}>Изменить тип</button>
+                </div>
+            </div>
         </div>
     );
 };

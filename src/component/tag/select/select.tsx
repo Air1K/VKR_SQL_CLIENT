@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select  from '@mui/material/Select';
 import searchRouteDb from '../../hooks/hooks-search-route-db'
 import {Context} from "../../../index";
-const Selected = ({setActive, nameLabel, objMap, ID}) => {
+const Selected = ({active, setActive, nameLabel, objMap, ID}) => {
     const {store} = useContext(Context);
 
     console.log("Рендер Select ____________________________________")
@@ -20,6 +20,7 @@ const Selected = ({setActive, nameLabel, objMap, ID}) => {
                     store.setRouteActive(searchRouteDb(e.target.value, store.idGraph, store.matrixsmesh, store.Routes));
 
                 }}
+                defaultValue={active}
                 label="111"
             >
                 <MenuItem value={null}>

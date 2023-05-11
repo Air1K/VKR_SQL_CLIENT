@@ -10,6 +10,7 @@ import MyModal from "../../../myModal/myModal";
 import DellBlock from "../inputBlock/dellBlock";
 import DellZone from "../areaNodeAndZon/zone/dellZone";
 import {observer} from "mobx-react-lite";
+import ModalBlock from "./modalBlock";
 
 const PlanMain = () => {
     console.log("Рендер Plan_Main____________________________________")
@@ -20,7 +21,8 @@ const PlanMain = () => {
     const [myModalZone, setMyModalZone] = useState(false)
     const [name, setName] = useState([])
     const [visibleDell, setVisibleDell] = useState(false)
-
+    const [activeEditZone, setActiveEditZone] = useState(false);
+    const [activeEditNode, setActiveEditNode] = useState(false);
     let obj = []
     for (let j = 0; j < store.idGraph.length; j++) {
         obj[j] = {
@@ -59,13 +61,13 @@ const PlanMain = () => {
     return (
         <div className={styles.mainNodeAndConnect}>
             <div className={styles.componentNodeAndConnect}>
+                <DellZone setActiveEditZone={setActiveEditZone}/>
                 <InputTochek
                     setMyModal={setMyModal}
-                    setName={setName}/>
+                    setName={setName}
+                    setActiveEditNode={setActiveEditNode}/>
                 <Block
                     setVisibleDell = {setVisibleDell}
-                    setMyModalZone = {setMyModalZone}
-
                 />
                 <AreaNodeAndZone
                     obj={obj}
@@ -103,11 +105,12 @@ const PlanMain = () => {
                     }}>Нет
                     </button>
                 </MyModal>}
-                {myModalZone&&<MyModal visible={myModalZone} setVisible={setMyModalZone}>
-                    <DellZone
-                        setMyModalZone={setMyModalZone}
-                    />
-                </MyModal>}
+                <ModalBlock activeEditZone={activeEditZone} setActiveEditZone={setActiveEditZone} activeEditNode={activeEditNode} setActiveEditNode={setActiveEditNode} />
+                {/*{myModalZone&&<MyModal visible={myModalZone} setVisible={setMyModalZone}>*/}
+                {/*    <DellZone*/}
+                {/*        setMyModalZone={setMyModalZone}*/}
+                {/*    />*/}
+                {/*</MyModal>}*/}
             </div>
         </div>
     );

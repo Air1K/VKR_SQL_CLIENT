@@ -1,8 +1,9 @@
 import React, {useContext, useState} from 'react';
 import {Context} from "../../../../../../index";
 import Selected from "../../../../../tag/select/select";
+import styles from "../../inputBlock/stylesBlock.module.sass";
 
-const DellZone = ({setMyModalZone}) => {
+const DellZone = ({setActiveEditZone}) => {
     console.log("Рендер DellZone ____________________________________")
 
     const {store} = useContext(Context);
@@ -10,8 +11,8 @@ const DellZone = ({setMyModalZone}) => {
     const [color, setColor] = useState('')
     const [active, setActive] = useState(null)
     return (
-        <div>
-            <div>
+        <div className={styles.main}>
+            <div className={styles.oknovvoda}>
                 <h6>
                     Создание зоны
                 </h6>
@@ -24,9 +25,14 @@ const DellZone = ({setMyModalZone}) => {
                     <input type="color" placeholder="Название зоны" value={color} onChange={event => setColor(event.target.value)}/><br/><br/>
                     <button onClick={async ()=>{
                         await store.setSizeZon(name, color, store.type_zone[active].id_type_zone)
-                        await setMyModalZone(false);
-                        }}>Создать зону</button>
-                    <button onClick={()=>{setMyModalZone(false);}}>Отменить создание</button>
+
+                        }}>Добавить зону</button>
+                    <button onClick={ ()=>{
+                        setActiveEditZone(true);
+                    }}>Изменить зону</button>
+                    <button onClick={async ()=>{
+                        await store.setSizeZon(name, color, store.type_zone[active].id_type_zone)
+                    }}>Удалить зону (не работает, если зона внесена в БД)</button>
                 </div>
             </div>
         </div>

@@ -40,12 +40,11 @@ const Main = observer(() => {
                                 <ul className="dropdown">
                                     <li><a href="#" onClick={() => {
                                         setVisible(true)
-                                    }}>Создать план</a></li>
-                                    <li><Link to={`plan/${store.plan[store.stock_active - 1]?.name}/plan`}>Создать
-                                        точки и зоны</Link></li>
+                                    }}>Создать / изменить план</a></li>
+                                    <li><Link to={`plan/${store.plan[store.stock_active - 1]?.name}/plan`}>Конструктор склада</Link></li>
                                     <li><a href="#" onClick={() => {
                                         setVisibleZon(true)
-                                    }}>Добавить тип зоны</a></li>
+                                    }}>Тип зоны</a></li>
                                     <li><a href="#" onClick={() => {
                                         setVisibleUnits(true)
                                     }}>Единицы измерения</a></li>

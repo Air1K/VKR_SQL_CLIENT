@@ -3,7 +3,7 @@ import styles from './stylesBlock.module.sass'
 import {Context} from "../../../../../index";
 import Selected from "../../../../tag/select/select";
 
-const Block = ({setVisibleDell, setMyModalZone}) => {
+const Block = ({setVisibleDell}) => {
 
     console.log("Рендер Block ____________________________________")
 
@@ -18,20 +18,20 @@ const Block = ({setVisibleDell, setMyModalZone}) => {
         <div className={styles.main}>
             <div className={styles.oknovvoda}>
                 <h6>
-                    Задать растояние между двумя пунктами
+                    Создание ребер (связи между точками)
                 </h6>
                 <div className={styles.box}>
 
                     <div className={styles.box1}>
-                        Введите первый узел:
+                        Введите первую точку:
                         <input type="text" value={G1} onChange={event => setG1(event.target.value)}
                                placeholder="Введите первый узел"/>
-                        Ведите второй узел:
+                        Ведите втору. точку:
                         <input type="text" value={G2} onChange={event => setG2(event.target.value)}
                                placeholder="Введите второй узел"/>
                     </div>
                     <div className={styles.box1}>
-                        Введите расстояние между узлами:
+                        Введите расстояние между точками:
                         <input type="number" value={ves} onChange={event => setVes(event.target.value)}
                                placeholder="Введите расстояние между узлами"/>
                         Укажите единицы измерения
@@ -49,16 +49,16 @@ const Block = ({setVisibleDell, setMyModalZone}) => {
                         id_units_type: store.units_type[active].id_units_type,
                         id_zone: null,
                     })
-                }}>Задать расстояние
+                }}>Саздать / изменить ребро
                 </button>
                 <button title="Удаление связи двух графов" onClick={async () => {
                     setVisibleDell(true)
-                }}>Открыть окно удаления пути
+                }}>Окно удаления ребра (не работает, если ребро внесено в БД)
                 </button>
-                <button onClick={async () => {
-                    setMyModalZone(true)
-                }}>Открыть окно назначения зоны
-                </button>
+                {/*<button onClick={async () => {*/}
+                {/*    setMyModalZone(true)*/}
+                {/*}}>Открыть окно назначения зоны*/}
+                {/*</button>*/}
             </div>
         </div>
     );
