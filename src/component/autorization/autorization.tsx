@@ -6,6 +6,7 @@ import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import styles from './stuleAuth.module.sass'
 
+const img = require('../../img/1138829.jpg')
 const Authorization = () => {
 
     console.log("Рендер Authorization ____________________________________")
@@ -24,7 +25,7 @@ const Authorization = () => {
 
     const emailHandler = (e) => {
         setEmail(e.target.value);
-        const result = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        const result = /^[a-zA-Z0-9!@#$%^&*_]{4,25}$/;
         if (!result.test(String(e.target.value).toLowerCase())) {
             setEmailError("Некорректный email");
         } else {
@@ -60,7 +61,6 @@ const Authorization = () => {
     async function server() {
 
 
-
         if (!(emailError || passwordError)) {
             await store.login(email, password);
             console.log(store.isAuth);
@@ -73,7 +73,11 @@ const Authorization = () => {
 
     return (
         <section className={styles.main}>
+            <div className={styles.img}><img src={img} alt=""/></div>
             <div className={styles.app}>
+                {store.messages && <div className={styles.password_error_block} style={{color: 'red'}}>
+                    <div><FontAwesomeIcon icon={faTriangleExclamation}/> {store.messages}</div>
+                </div>}
                 <div className={styles.content}>
                     <h6 className={styles.autorizItem}>Автоматизированная система "Складская логистика"</h6>
                     {/*<div className="logo_dov">*/}
@@ -91,6 +95,7 @@ const Authorization = () => {
                                     top: '85%'
                                 }}>
                                 <FontAwesomeIcon icon={faTriangleExclamation}/> {emailError}</div>}
+                        Логин:
                         <input onBlur={e => blurHandler(e)} onChange={e => emailHandler(e)} value={email}
                                className='input1'
                                type="text" name="email" id="email" placeholder="Email"/>
@@ -106,13 +111,13 @@ const Authorization = () => {
                                     top: '85%'
                                 }}>
                                 <FontAwesomeIcon icon={faTriangleExclamation}/> {passwordError}</div>}
+                        Пароль:
                         <input onChange={e => passwordHandler(e)} onBlur={e => blurHandler(e)} className='input2'
                                type="Password" name="password" id="password" placeholder="Password"/>
                     </div>
                     <div className="conteiner_Log_reg">
                         <div className={styles.buttom_div}>
                             <Link to="/main" onClick={server} className="button8">Войти</Link>
-                            <div className="passwordError" style={{color: 'red'}}>{store.messages}</div>
                         </div>
                         {/*<div className="bottom_registr">*/}
                         {/*    <span>Don’t have an account? </span>*/}

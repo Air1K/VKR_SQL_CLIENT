@@ -294,6 +294,7 @@ export default class Store {
 
     async saveBd(){
         try {
+            this.setMessages("Выполняется");
             const response = await NodeZoneEdgeService.addNodeZoneEdge(this.idGraph, this.sizeZon, this.matrixsmesh, this.edge)
             console.log(this.stock_active)
             console.log(this.img)
@@ -301,11 +302,13 @@ export default class Store {
             if(this.img !== null){
                 await NodeZoneEdgeService.postImg(this.img, this.stock_active)
             }
-            await this.getStock()
+            await this.getNodeAndZone()
+            this.setMessages(response?.data?.message);
             console.log(response)
         }
         catch (e) {
-            console.log(e)
+            console.log(e.response?.data?.message)
+            this.setMessages(e.response?.data?.message);
         }
     }
 

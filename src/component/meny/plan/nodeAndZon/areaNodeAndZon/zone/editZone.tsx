@@ -21,11 +21,12 @@ const EditZone = () => {
     }
     useEffect(()=>{
         return ()=> {
-                    setName('')
-                    setColor('')
-                    setActive(null)
-                    setActiveZone(null)
-                    console.log("unmount +++++++++++++++++++++++++++++")
+            setName('')
+            setColor('')
+            setActive(null)
+            setActiveZone(null)
+            store.setMessages('')
+            console.log("unmount +++++++++++++++++++++++++++++")
                 };
     }, [])
 
@@ -38,6 +39,14 @@ const EditZone = () => {
     //         console.log("unmount")
     //     };
     // }, [])
+    const deleteZone = (index)=>{
+        console.log(store.sizeZon[index].id_zone)
+        if(store.sizeZon[index].id_zone !== null){
+            store.setMessages('Невозможно удалить зону сохраненную в БД')
+        }
+        console.log(store.messages)
+    }
+
     return (
         <div>
             <div>
@@ -53,7 +62,7 @@ const EditZone = () => {
                         <tr><th>№</th><th>Имя</th><th>Тип зоны</th><th>Цвет зоны</th></tr>
                         {
                             store.sizeZon.map((zone, index)=>
-                                <tr key={index}><td>{index}</td><td>{zone.name}</td><td>{store.type_zone[zone.id_type_zone - 1].name}</td><td>{zone.color} <div className={styles.modalEditZone} style={{backgroundColor: zone.color}} ></div></td><td><FontAwesomeIcon icon={faPencil} style={{color: "#a5a546", cursor: 'pointer'}} onClick={()=>{addEdit(zone.name, zone.color, zone.id_type_zone, index)}}/></td><td><FontAwesomeIcon icon={faTrash} style={{color: "#db4040", cursor: 'pointer'}} /></td></tr>
+                                <tr key={index}><td>{index}</td><td>{zone.name}</td><td>{store.type_zone[zone.id_type_zone - 1].name}</td><td>{zone.color} <div className={styles.modalEditZone} style={{backgroundColor: zone.color}} ></div></td><td><FontAwesomeIcon icon={faPencil} style={{color: "#a5a546", cursor: 'pointer'}} onClick={()=>{addEdit(zone.name, zone.color, zone.id_type_zone, index)}}/></td><td><FontAwesomeIcon icon={faTrash} style={{color: "#db4040", cursor: 'pointer'}} onClick={()=>{deleteZone(index)}} /></td></tr>
                             )
                         }
                     </table>

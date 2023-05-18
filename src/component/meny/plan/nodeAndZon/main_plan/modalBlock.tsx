@@ -1,20 +1,35 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import MyModal from "../../../myModal/myModal";
 import EditZone from "../areaNodeAndZon/zone/editZone";
 import EditNode from "../areaNodeAndZon/areaMotion/editNode";
+import styles from "../../../../autorization/stuleAuth.module.sass";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
+import {Context} from "../../../../../index";
+import {observer} from 'mobx-react-lite'
 
 const ModalBlock = ({activeEditZone, setActiveEditZone, activeEditNode, setActiveEditNode}) => {
+    const {store} = useContext(Context);
+    useEffect(() => {
+        console.log(store.messages)
+    }, [store.messages])
     return (
         <div>
 
-            {activeEditZone && <MyModal visible={activeEditZone} setVisible={setActiveEditZone}>
-                {activeEditZone &&  <EditZone/>}
-            </MyModal>}
+            {activeEditZone &&
+                <div>
+
+                    <MyModal visible={activeEditZone} setVisible={setActiveEditZone}>
+                        {store.messages&& <div className={styles.allError} style={{color: 'red'}}>
+                            <FontAwesomeIcon icon={faTriangleExclamation}/> {store.messages}</div>}
+                        {activeEditZone && <EditZone/> }
+                    </MyModal>
+                </div>}
             {activeEditNode && <MyModal visible={activeEditNode} setVisible={setActiveEditNode}>
-                {activeEditNode &&  <EditNode/>}
+                {activeEditNode && <EditNode/>}
             </MyModal>}
         </div>
     );
 };
 
-export default ModalBlock;
+export default observer(ModalBlock);

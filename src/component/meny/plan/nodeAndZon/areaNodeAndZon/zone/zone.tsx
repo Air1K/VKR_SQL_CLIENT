@@ -1,8 +1,8 @@
-import React, {useState, useReducer, useContext, useEffect, useRef} from 'react';
+import React, {useState, useContext, useEffect, useRef} from 'react';
 import styles from './stylesZone.module.sass'
 import {Context} from "../../../../../../index";
-import {SizeZon} from "../../../../../../models/SizeZon";
 import {motion, useDragControls} from "framer-motion";
+import {observer} from "mobx-react-lite";
 
 const Zone = ({ draggableEl,  visibleZon, zon}) => {
     console.log("Рендер Zone ____________________________________")
@@ -77,4 +77,4 @@ const Zone = ({ draggableEl,  visibleZon, zon}) => {
     );
 };
 
-export default Zone;
+export default observer(Zone);
