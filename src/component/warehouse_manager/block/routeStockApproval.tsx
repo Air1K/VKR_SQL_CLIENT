@@ -1,24 +1,16 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../../../index";
-import styles from './stylesSearch.module.sass'
-import AreaNodeAndZone from "../plan/nodeAndZon/areaNodeAndZon/areaNodeAndZone";
+import styles from "../../meny/search/stylesSearch.module.sass";
 import Selected from "../../tag/select/select";
-import {observer} from "mobx-react-lite";
-import DateTime from "../../hooks/hooks-time"
-import searchRouteDb from '../../hooks/hooks-search-route-db'
-import RouteMap from "./RouteMap";
+import RouteMap from "../../meny/search/RouteMap";
+import AreaNodeAndZone from "../../meny/plan/nodeAndZon/areaNodeAndZon/areaNodeAndZone";
+import {observer} from 'mobx-react-lite'
 
-const Search = observer(() => {
-    console.log("Рендер Search ____________________________________")
-    const [date, setDate] = useState(`${DateTime}`)
+const RouteStockApproval = observer(() => {
     const {store} = useContext(Context);
-    const [G1, setG1] = useState('')
-    const [G2, setG2] = useState('')
 
     const edit = false
-    // const [render_line, setRender_line] = useState(false);
     const [myModalZone, setMyModalZone] = useState(false)
-    const [name_route, setNameRoute] = useState('')
     const [activeId, setActiveID] = useState(null);
     const [active, setActive] = useState(false);
     const [activeVariants, setActiveVariants] = useState(null);
@@ -44,33 +36,8 @@ const Search = observer(() => {
             console.log("Джопа")
 
         }
-        // setRender_line(true)
         setMyModalZone(true)
     })
-
-    useEffect(() => {
-        store.getRoutes()
-    }, [])
-
-
-    // const Strelka = (props) => {
-    //     const index_ = props.ellement;
-    //     console.log(index_, store.mass_putei_exit.length - 1)
-    //     if (index_ < store.mass_putei_exit[activeId]?.interval_node?.length - 1) {
-    //         return (<span>➜</span>)
-    //     }
-    //     return null;
-    // }
-    //
-    // const Otvet = () => {
-    //
-    //     if (store.b != null) {
-    //         console.log(store.mass_putei_exit)
-    //         return (<span> &nbsp; {store.mass_putei_exit[activeId]?.long}</span>)
-    //     }
-    //     return null;
-    // }
-
     useEffect(() => {
         if (activeId !== null) {
             console.log("setActive(true) ++++------++++-----------++++--------------- ++++")
@@ -80,35 +47,11 @@ const Search = observer(() => {
             setActive(false)
         }
     }, [activeId])
-
     useEffect(() => {
-        // searchRouteDb(store.idGraph, store.matrixsmesh, 8, 18, store?.Routes[activeId]?.variants_route[activeVariants].interval_node)
-        console.log(activeVariants)
-    }, [activeVariants])
-
+        store.getRoutes()
+    }, [])
     return (
-        <div className={styles.block}>
-            <div className={styles.main}>
-                <h5>Поиск маршрута</h5>
-                Введите краткое название для маршрута
-                <input type="text" name={name_route} id="" onChange={event => setNameRoute(event.target.value)}
-                       placeholder='Краткое название маршрута'/>
-                Введите начальную точку
-                <input type="text" value={G1} onChange={event => setG1(event.target.value)}
-                       placeholder="Введите первый граф"/>
-                Введите конечную точку
-                <input type="text" value={G2} onChange={event => setG2(event.target.value)}
-                       placeholder="Введите второй граф"/>
-                Дата и время формирования
-                <input type="datetime-local" value={date} onChange={event => setDate(event.target.value)}/>
-                <button onClick={async () => {
-
-                    await store.search(G1, G2, name_route, date);
-                    console.log(" ++++------++++-----------++++--------------- ++++")
-                    setActive(true)
-                }}>Найти
-                </button>
-            </div>
+        <div>
             <div className={styles.main}>
                 <div className={styles.search_div}>
                     <div style={{marginTop: "16px"}}>Выберите кротчайший маршрут: &nbsp; &nbsp;</div>
@@ -158,4 +101,4 @@ const Search = observer(() => {
     );
 });
 
-export default Search;
+export default RouteStockApproval;

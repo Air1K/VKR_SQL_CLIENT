@@ -10,7 +10,7 @@ const SelectMain = observer(()=> {
     const planStock = (event)=>{
         store.setStockActive(store.plan.findIndex(el => el.id_stock === Number(event.target.value)) + 1);
     }
-
+//({plan.id_status === 1 ? <div style={{color: 'green'}}>Утвержден</div>:<div style={{color:'yellow'}}>Не утвержден</div>})
     return (
         <div className={'input-field '} style={{display: "flex", alignItems: "center"}}>
             <select className="browser-default" style={{
@@ -25,6 +25,7 @@ const SelectMain = observer(()=> {
                     <option key={index} value={plan.id_stock}>{plan.id_stock}.&nbsp;{plan.name}</option>
                 )}
             </select>
+
         </div>
     );
 });

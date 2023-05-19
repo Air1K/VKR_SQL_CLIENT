@@ -1,22 +1,15 @@
 import React from 'react';
-
+import styles from '../../meny/plan/nodeAndZon/main_plan/stylesNodeAndConnect.module.sass'
+import ApprovalBlock from "../block/approvalBlock";
+import InfoSklad from '../block/infoSklad/infoSklad';
+import RouteStockApproval from "../block/routeStockApproval";
 const PlanStock = () => {
     return (
-        <div>
-            <div>
-                <h5>Утверждение склада</h5>
-                Выберите склад:
-                <select className="browser-default" style={{
-                    backgroundColor: "rgb(255 255 255 / 0%)",
-                    border: '1px solid #f2f2f200',
-
-                }}>
-                    <option value="" disabled selected>Выбрать план склада</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                </select>
-                Определите статус:
+        <div className={styles.mainNodeAndConnect}>
+            <div className={styles.componentNodeAndConnect} style={{width:" 1139px"}}>
+                <InfoSklad/>
+                <RouteStockApproval/>
+                <ApprovalBlock/>
             </div>
         </div>
     );

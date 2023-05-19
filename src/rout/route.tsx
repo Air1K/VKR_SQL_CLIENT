@@ -9,8 +9,6 @@ import SearchRout from "../component/searchRout";
 import VvodPlana from "../component/vvodPlana";
 import Otchet from "../component/meny/otchet/otchet";
 import PlanSklad from "../component/warehouse_manager/plan_stock/plan_sklad";
-import ListRout from "../component/warehouse_manager/list_rout/list_rout";
-import Analitics from "../component/warehouse_manager/analytics/analitics";
 
 
 
@@ -25,22 +23,21 @@ const RouterCustom = observer( () => {
                 <Route path="" element={<Navigate to={'/main'} />}/>
                 <Route path="authorization" element={<Authorization/>}/>
                 <Route path="main" element={<Main/>}/>
-                <Route path={`main/plan/${store.plan[store.stock_active-1]?.name}/search`} element={<SearchRout/>}/>
-                <Route path={`main/plan/${store.plan[store.stock_active-1]?.name}/plan`} element={<VvodPlana/>}/>
-                <Route path={`main/plan/${store.plan[store.stock_active-1]?.name}/otchet`} element={<Otchet/>}/>
+                <Route path={store.stock_active!==null ?`main/plan/${store.plan[store.stock_active-1]?.name}/search`: "NoRoute"} element={<SearchRout/>}/>
+                <Route path={store.stock_active!==null ?`main/plan/${store.plan[store.stock_active-1]?.name}/plan`: "NoRoute"} element={<VvodPlana/>}/>
+                <Route path={store.stock_active!==null ?`main/plan/${store.plan[store.stock_active-1]?.name}/otchet`: "NoRoute"} element={<Otchet/>}/>
             </Routes>
         )
     }
-    if (store.user.role === 'Warehouse_Manager') {
+    //plan/${store.plan[store.stock_active - 1]?.name}/approval
+    if (store.user.role === 'warehouse_manager') {
         return (
 
             <Routes>
                 <Route path="" element={<NewComponentMain/>}/>
                 <Route path="authorization" element={<Authorization/>}/>
                 <Route path="main" element={<Main/>}/>
-                <Route path={store.stock_active ? "main/plan/" + store.plan[store.stock_active-1]?.name + "/plan_status" : "main/plan_status"} element={<PlanSklad/>}/>
-                <Route path={store.stock_active ? "main/plan/" + store.plan[store.stock_active-1]?.name + "/list" : "main/list"} element={<ListRout/>}/>
-                <Route path={store.stock_active ? "main/plan/" + store.plan[store.stock_active-1]?.name + "/analytics" : "main/analytics"} element={<Analitics/>}/>
+                <Route path={store.stock_active!==null ? `main/plan/${store.plan[store.stock_active-1]?.name}/approval`: "NoRoute"} element={<PlanSklad/>}/>
             </Routes>
 
         )

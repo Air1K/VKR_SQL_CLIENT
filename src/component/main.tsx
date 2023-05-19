@@ -74,12 +74,8 @@ const Main = observer(() => {
                     <nav role="navigation" className="primary-navigation">
 
                         <ul>
-                            <li><Link to={"plan/" + store.plan[store.stock_active - 1]?.name + "/plan_status"}
-                                      data-hover="Show">Показать план склада</Link></li>
-                            <li><Link to={"plan/" + store.plan[store.stock_active - 1]?.name + "/main/list"}
-                                      data-hover="List">Журнал перевозок</Link></li>
-                            <li><Link to={"plan/" + store.plan[store.stock_active - 1]?.name + "/main/analytics"}
-                                      data-hover="Form">Аналитика перевозок</Link></li>
+                            <li><Link to={`plan/${store.plan[store.stock_active - 1]?.name}/approval`}
+                                      data-hover="List">Утверждение плана</Link></li>
                             <li><Link to="/authorization" data-hover="Exit" onClick={() => {
                                 store.logoutE()
                             }}>Выйти из системы</Link></li>
