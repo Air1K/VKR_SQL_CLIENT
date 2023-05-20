@@ -16,6 +16,7 @@ import NodeZoneEdgeService from '../services/NodeZoneEdgeService'
 import {Edge} from "../models/Edge";
 import RouteService from "../services/RouteService";
 import solution from "../component/hooks/hooks-route";
+import {Approval} from "../models/Approval";
 export default class Store {
 
 
@@ -23,6 +24,7 @@ export default class Store {
     type_zone: TypeZone [] = []; //Таблица бл
     sizeZon: SizeZon[] = []; //Таблица бл
     units_type: UnitsType[] = []; //Таблица бл
+    approval: Approval[] = [];
     user = {} as IUser //Таблица бл
     plan: Plan[] = []; //Таблица бл
     edge: Edge[] = []; //Таблица бл
@@ -78,6 +80,27 @@ export default class Store {
             this.setMessages(e.response?.data?.message);
         }
     }
+    setApprovalStore(approval: Approval[]){
+        this.approval = approval
+    }
+    async setApproval(name){
+        try {
+            const response = await StockService.fetchApprovalPost(name);
+            console.log(response)
+        }catch (e) {
+            console.log(e.response?.data?.message);
+            this.setMessages(e.response?.data?.message);
+        }
+    }
+
+    async setEditApproval(name, name_new){
+        try {
+            await StockService.fetchEditApprovalPost(name, name_new);
+        }catch (e) {
+            console.log(e.response?.data?.message);
+            this.setMessages(e.response?.data?.message);
+        }
+    }
 
     setTypeZone(type_zone: TypeZone[]) {
         this.type_zone = type_zone;
@@ -95,6 +118,7 @@ export default class Store {
             this.setPlan(response.data.stock);
             this.setTypeZone(response.data.zoneType)
             this.setUnitsType(response.data.unitsType)
+            this.setApprovalStore(response.data.approval)
         } catch (e) {
             console.log(e);
         }

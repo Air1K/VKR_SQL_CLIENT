@@ -9,6 +9,7 @@ const SelectMain = observer(()=> {
     console.log(store.isAuth)
     const planStock = (event)=>{
         store.setStockActive(store.plan.findIndex(el => el.id_stock === Number(event.target.value)) + 1);
+        console.log(store.plan)
     }
 //({plan.id_status === 1 ? <div style={{color: 'green'}}>Утвержден</div>:<div style={{color:'yellow'}}>Не утвержден</div>})
     return (
@@ -22,7 +23,7 @@ const SelectMain = observer(()=> {
             >
                 {store.stock_active ? <option value={store.stock_active} disabled selected>{store.stock_active}.&nbsp;{store.plan[store.stock_active-1]?.name}</option> :<option value="" disabled selected>Выбрать план склада</option>}
                 {store.plan.map((plan, index) =>
-                    <option key={index} value={plan.id_stock}>{plan.id_stock}.&nbsp;{plan.name}</option>
+                    <option key={index} value={plan.id_stock} style={plan.id_status === 1 ? {backgroundColor: "green", padding: "2px"}:{backgroundColor: "gray", padding: "2px"}}>{plan.id_stock}.&nbsp;{plan.name}</option>
                 )}
             </select>
 

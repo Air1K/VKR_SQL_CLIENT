@@ -10,6 +10,7 @@ import NewZone from "./meny/plan/newZone/newZone";
 import {observer} from "mobx-react-lite";
 import SelectMain from './tag/selectMAin/SelectMain'
 import NewUnits from "./meny/plan/newUnitstype/NewUnits";
+import Approval from "./meny/plan/approval/approval";
 
 const Main = observer(() => {
     console.log("Рендер main ____________________________________")
@@ -18,6 +19,7 @@ const Main = observer(() => {
     const [visible, setVisible] = useState(false)
     const [visibleZon, setVisibleZon] = useState(false)
     const [visibleUnits, setVisibleUnits] = useState(false)
+    const [visibleApproval, setVisibleApproval] = useState(false)
 
     useEffect(()=>{
         async function getPlan(){
@@ -48,6 +50,9 @@ const Main = observer(() => {
                                     <li><a href="#" onClick={() => {
                                         setVisibleUnits(true)
                                     }}>Единицы измерения</a></li>
+                                    <li><a href="#" onClick={() => {
+                                        setVisibleApproval(true)
+                                    }}>Утверждение</a></li>
                                 </ul>
                             </li>
                             <li><Link to={`plan/${store.plan[store.stock_active - 1]?.name}/search`}
@@ -83,9 +88,8 @@ const Main = observer(() => {
                                 <SelectMain/>
                             </li>
                         </ul>
-
                     </nav>
-
+                    {store.stock_active !== null? <div style={{padding: "11px"}}>Статус склада: <span style={store.plan[store.stock_active-1].id_status===1?{color: "green"}:{color: "yellow"}}>{store.plan[store.stock_active-1].id_status===1?"Утвежден":"Не утвержден"}</span></div>:null}
                 </div>
             )
         }
@@ -105,6 +109,10 @@ const Main = observer(() => {
             {visibleUnits&&
             <MyModal visible={visibleUnits} setVisible={setVisibleUnits}>
                 <NewUnits setVisible={setVisibleUnits}/>
+            </MyModal>}
+            {visibleApproval &&
+            <MyModal visible={visibleApproval} setVisible={setVisibleApproval}>
+                <Approval setVisible={setVisibleApproval}/>
             </MyModal>}
 
             <div className={styles.img}></div>
