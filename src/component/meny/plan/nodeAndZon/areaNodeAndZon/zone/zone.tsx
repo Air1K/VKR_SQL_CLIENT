@@ -63,7 +63,7 @@ const Zone = ({ draggableEl,  visibleZon, zon}) => {
                         style={{width: zone.widtH + "px", height: zone.heighT + "px"}}
                         initial={{y: zone.toP, x: zone.lefT}}
                     >
-                        <div className={styles.content}>{zone.name}({store.type_zone[zone.id_type_zone - 1].name})</div>
+                        <div className={styles.content}>{zone.name}({store.type_zone[store.type_zone.findIndex(el => el.id_type_zone === zone.id_type_zone)].name})</div>
                         <div className={styles.main_absolute}
                         style={{backgroundColor: zone.color, opacity: visibleZon / 100}}>
 

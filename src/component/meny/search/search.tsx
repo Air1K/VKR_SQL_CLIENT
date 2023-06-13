@@ -111,11 +111,11 @@ const Search = observer(() => {
             </div>
             <div className={styles.main}>
                 <div className={styles.search_div}>
-                    <div style={{marginTop: "16px"}}>Выберите кротчайший маршрут: &nbsp; &nbsp;</div>
+                    <div style={{marginTop: "16px"}}>Выберите кратчайший маршрут: &nbsp; &nbsp;</div>
                     <div className={styles.select}>
                         <Selected active={null}
                                   setActive={setActiveID}
-                                  nameLabel={"Кротчайший маршрут"}
+                                  nameLabel={"Кратчайший маршрут"}
                                   objMap={store.Routes}
                                   ID={"id"}/>
                     </div>
@@ -126,7 +126,7 @@ const Search = observer(() => {
 
                     {activeId !== null ? (
                         <div style={{display: "block"}}>
-                            <div>
+                            <div className={styles.search_List}>
                                 <span>Найденые маршруты: </span>
                                 <RouteMap active={activeId} activeVariants={activeVariants}
                                           setActiveVariants={setActiveVariants}/>

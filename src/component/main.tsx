@@ -117,7 +117,7 @@ const Main = observer(() => {
 
             <div className={styles.img}></div>
             <div className={styles.fon}>
-                <h2 style={{textAlign: "center", margin: 0}}>Главное окно АС"Складская логистика"</h2>
+                <h2 style={{textAlign: "center", margin: 0}}>Главное окно АИС"Складская логистика"</h2>
                 <RoleFunck/>
             </div>
         </div>

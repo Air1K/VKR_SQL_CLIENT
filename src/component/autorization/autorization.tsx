@@ -79,7 +79,7 @@ const Authorization = () => {
                     <div><FontAwesomeIcon icon={faTriangleExclamation}/> {store.messages}</div>
                 </div>}
                 <div className={styles.content}>
-                    <h6 className={styles.autorizItem}>Автоматизированная система "Складская логистика"</h6>
+                    <h6 className={styles.autorizItem}>Автоматизированная информационная система "Складская логистика"</h6>
                     {/*<div className="logo_dov">*/}
                     {/*    /!*<img className="Logo_fon" src={require("../../../img-2/NO-NLfon.png")} alt=""/>*!/*/}
                     {/*    /!*<img className="Logo_bac" src={require("../../../img-2/NO-NLbac.png")} alt=""/>*!/*/}
